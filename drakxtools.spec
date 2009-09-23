@@ -1,6 +1,6 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
-Version: 12.54
+Version: 12.55
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
@@ -22,8 +22,8 @@ Conflicts: mandrake_doc-drakxtools-en < 9.2, mandrake_doc-drakxtools-es < 9.2, m
 Conflicts: bootloader-utils < 1.8-4mdk, bootsplash < 2.1.7-1mdk
 Conflicts: drakx-kbd-mouse-x11 < 0.19
 Conflicts: initscripts < 8.33-4mdk
-Requires: ldetect-lst >= 0.1.186
-BuildRequires: gettext, ldetect-devel >= 0.8.0, ncurses-devel, perl-devel >= 1:5.8.0-20mdk, perl-MDK-Common-devel >= 1.1.8-3mdk
+Requires: ldetect-lst >= 0.1.272
+BuildRequires: gettext, ldetect-devel >= 0.9.0, ncurses-devel, perl-devel >= 1:5.8.0-20mdk, perl-MDK-Common-devel >= 1.1.8-3mdk
 BuildRequires: parted-devel
 BuildRequires: drakx-installer-binaries intltool
 BuildRoot: %_tmppath/%name-buildroot
