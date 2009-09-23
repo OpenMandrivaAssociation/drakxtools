@@ -43,6 +43,7 @@ Obsoletes: diskdrake kbdconfig mouseconfig setuptool drakfloppy
 Obsoletes: drakxtools-newt
 Provides: diskdrake, kbdconfig mouseconfig setuptool, drakfloppy = %version-%release
 Provides: drakxtools-newt = %version-%release
+%define _requires_exceptions perl(Gtk2::WebKit)\\|perl(Xconfig::various)
 
 %package backend
 Summary: Drakxtools libraries and background tools 
@@ -186,7 +187,7 @@ dirs1="usr/lib/libDrakX usr/share/libDrakX"
 (cd $RPM_BUILD_ROOT ; find $dirs1 usr/bin usr/sbin ! -type d -printf "/%%p\n")|egrep -v 'bin/.*harddrake' > %{name}.list
 (cd $RPM_BUILD_ROOT ; find $dirs1 -type d -printf "%%%%dir /%%p\n") >> %{name}.list
 
-perl -ni -e '/dbus_object\.pm|Xdrakres|clock|drak(bug|clock|dvb|floppy|font|hosts|log|perm|sec|splash)|gtk|icons|logdrake|pixmaps|\.png$/ ? print STDERR $_ : print' %{name}.list 2> %{name}-gtk.list
+perl -ni -e '/dbus_object\.pm|Xdrakres|clock|display_help|drak(bug|clock|dvb|floppy|font|hosts|log|perm|sec|splash)|gtk|icons|logdrake|pixmaps|\.png$/ ? print STDERR $_ : print' %{name}.list 2> %{name}-gtk.list
 perl -ni -e '/http/ ? print STDERR $_ : print' %{name}.list 2> %{name}-http.list
 perl -ni -e 'm!lib/libDrakX|bootloader-config|fileshare|lsnetdrake|drakupdate_fstab|rpcinfo|serial_probe! && !/curses/i ? print STDERR $_ : print' %{name}.list 2> %{name}-backend.list
 perl -ni -e '/finish-install/ ? print STDERR $_ : print' %{name}.list 2> finish-install.list
