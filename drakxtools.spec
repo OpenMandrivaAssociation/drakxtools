@@ -3,7 +3,7 @@ Name:    drakxtools
 Version: 12.56
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
-Source0: %name-%version.tar.lzma
+Source0: %name-%version.tar.xz
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
