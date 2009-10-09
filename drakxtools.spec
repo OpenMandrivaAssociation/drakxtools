@@ -1,6 +1,6 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
-Version: 12.59
+Version: 12.61
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
