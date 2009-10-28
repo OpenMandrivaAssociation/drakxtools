@@ -211,6 +211,7 @@ chmod +x $RPM_BUILD_ROOT{%_datadir/harddrake/{conf*,service_harddrake},%_sysconf
 rm -f $RPM_BUILD_ROOT%_sysconfdir/X11/xinit.d/harddrake2
 
 perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > $RPM_BUILD_ROOT%_sysconfdir/sysconfig/harddrake2/service.conf
+echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> $RPM_BUILD_ROOT%_sysconfdir/sysconfig/harddrake2/service.conf
 
 # consolehelper config
 #
