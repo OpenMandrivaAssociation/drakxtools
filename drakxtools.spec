@@ -4,6 +4,7 @@ Version: 12.78
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
+Patch0:  disable-draksplash.diff
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
@@ -105,7 +106,6 @@ them work both under XFree (graphical environment) and in console
 - draklog: show extracted information from the system logs
 - drakperm: msec GUI (permissions configurator)
 - draksec: security options managment / msec frontend
-- draksplash: bootsplash themes creation
 
 %description backend
 See package %name
