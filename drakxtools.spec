@@ -12,6 +12,8 @@ Requires: %{name}-curses = %version-%release, perl-Gtk2 >= 1.220, perl-Glib >= 1
 # needed by drakfont (eg: type1inst):
 Requires: font-tools
 Requires: libxxf86misc
+# needed by any::enable_x_screensaver()
+Requires: xset
 Requires: drakx-net
 Requires: drakconf-icons
 # needed for installing packages through do_pkgs -> urpmi -> gmessage
