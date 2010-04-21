@@ -4,6 +4,7 @@ Version: 13.20
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
+Patch0:  hu.patch
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
