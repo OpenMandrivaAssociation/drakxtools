@@ -1,7 +1,7 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.35
-Release: %mkrel 2
+Release: %mkrel 3
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
 License: GPLv2+
@@ -53,7 +53,7 @@ Group: System/Configuration/Other
 Requires: dmidecode
 Requires: perl-File-FnMatch
 # for fileshareset and filesharelist (#17123)
-Requires: perl-suid
+#Requires: perl-suid
 # for common::wrap_command_for_root()
 Requires: perl-String-ShellQuote
 # "post" here means %triggerpostun:
