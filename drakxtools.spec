@@ -1,6 +1,6 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
-Version: 13.39
+Version: 13.40
 Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
@@ -57,7 +57,7 @@ Requires: perl-File-FnMatch
 # for common::wrap_command_for_root()
 Requires: perl-String-ShellQuote
 # "post" here means %triggerpostun:
-Requires(post): perl-MDK-Common >= 1.2.13
+Requires(post): perl-MDK-Common >= 1.2.27
 Conflicts: drakxtools-newt < 10-51mdk
 Conflicts: drakx-net < 0.28
 Conflicts: e2fsprogs < 1.41.1-2mnb
