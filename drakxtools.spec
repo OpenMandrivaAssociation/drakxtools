@@ -1,12 +1,12 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.51
-Release: %mkrel 4
+Release: %mkrel 5
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
 Patch1:  drakxtools-13.51.timeout.patch
-Patch2:  drakxtools-13.51-grub.patch
+Patch2:  drakxtools-13.51-grub-password.patch
 Patch3:  drakxtools-13.51-faceicon.patch
 Patch4:  rosa-theme-fix.patch
 License: GPLv2+
