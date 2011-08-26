@@ -1,7 +1,7 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.51
-Release: %mkrel 9
+Release: %mkrel 10
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %name-%version.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
