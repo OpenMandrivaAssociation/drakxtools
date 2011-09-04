@@ -3,7 +3,7 @@ Name:    drakxtools
 Version: 13.51
 Release: %mkrel 10
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
-Source0: %name-%version.tar.lzma
+Source0: %{name}-%{version}.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
 Patch1:  drakxtools-13.51.timeout.patch
 Patch2:  drakxtools-13.51-grub-password.patch
@@ -15,7 +15,7 @@ License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
 # files to which we symlink
-Requires: %{name}-curses = %version-%release, perl-Gtk2 >= 1.220, perl-Glib >= 1.072-1mdk, usermode >= 1.92-4mdv2008.0, mandriva-doc-common >= 9.2-5mdk, perl-Net-DBus, perl-Gtk2-WebKit
+Requires: %{name}-curses = %{version}-%{release}, perl-Gtk2 >= 1.220, perl-Glib >= 1.072-1, usermode >= 1.92-4mdv2008.0, mandriva-doc-common >= 9.2-5, perl-Net-DBus, perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
 Requires: font-tools
 Requires: libxxf86misc
@@ -28,14 +28,13 @@ Requires: gurpmi >= 5.7
 Conflicts: drakconf < drakconf-11.7.2
 Conflicts: rpmdrake < 3.26-1
 Conflicts: mandrake_doc-drakxtools-en < 9.2, mandrake_doc-drakxtools-es < 9.2, mandrake_doc-drakxtools-fr < 9.2
-Conflicts: bootloader-utils < 1.8-4mdk, bootsplash < 2.1.7-1mdk
+Conflicts: bootloader-utils < 1.8-4, bootsplash < 2.1.7-1
 Conflicts: drakx-kbd-mouse-x11 < 0.91
-Conflicts: initscripts < 8.33-4mdk
+Conflicts: initscripts < 8.33-4
 Requires: ldetect-lst >= 0.1.272
-BuildRequires: gettext, ldetect-devel >= 0.9.0, ncurses-devel, perl-devel >= 1:5.8.0-20mdk, perl-MDK-Common-devel >= 1.1.8-3mdk
+BuildRequires: gettext, ldetect-devel >= 0.9.0, ncurses-devel, perl-devel >= 1:5.8.0-20, perl-MDK-Common-devel >= 1.1.8-3
 BuildRequires: parted-devel
 BuildRequires: drakx-installer-binaries intltool
-BuildRoot: %_tmppath/%name-buildroot
 Provides: draksec
 Obsoletes: draksec
 %define _requires_exceptions perl(Net::FTP)\\|perl(Time::localtime)\\|perl(URPM)\\|perl(Xconfig.*)
@@ -43,15 +42,15 @@ Obsoletes: draksec
 %package curses
 Summary: The drakxtools (diskdrake, ...)
 Group: System/Configuration/Other
-Requires: perl-base >= 2:5.8.6-1mdk, urpmi >= 4.8.23, usermode-consoleonly >= 1.44-4mdk
+Requires: perl-base >= 2:5.8.6-1, urpmi >= 4.8.23, usermode-consoleonly >= 1.44-4
 Requires: perl-Locale-gettext >= 1.05-4mdv2007
 Requires: module-init-tools
-Requires: %{name}-backend = %version-%release
+Requires: %{name}-backend = %{version}-%{release}
 Requires: drakx-net-text
 Obsoletes: diskdrake kbdconfig mouseconfig setuptool drakfloppy
 Obsoletes: drakxtools-newt
-Provides: diskdrake, kbdconfig mouseconfig setuptool, drakfloppy = %version-%release
-Provides: drakxtools-newt = %version-%release
+Provides: diskdrake, kbdconfig mouseconfig setuptool, drakfloppy = %{version}-%{release}
+Provides: drakxtools-newt = %{version}-%{release}
 %define _requires_exceptions perl(Gtk2::WebKit)\\|perl(Xconfig::various)
 
 %package backend
@@ -65,29 +64,29 @@ Requires: perl-File-FnMatch
 Requires: perl-String-ShellQuote
 # "post" here means %triggerpostun:
 Requires(post): perl-MDK-Common >= 1.2.27
-Conflicts: drakxtools-newt < 10-51mdk
+Conflicts: drakxtools-newt < 10-51
 Conflicts: drakx-net < 0.28
 Conflicts: e2fsprogs < 1.41.1-2mnb
 
 %package http
 Summary: The drakxtools via http
 Group: System/Configuration/Other
-Requires: %{name}-curses = %version-%release, perl(Net::SSLeay) >= 1.22-1mdk, perl-Authen-PAM >= 0.14-1mdk, perl-CGI >= 2.91-1mdk
+Requires: %{name}-curses = %{version}-%{release}, perl(Net::SSLeay) >= 1.22-1, perl-Authen-PAM >= 0.14-1, perl-CGI >= 2.91-1
 Requires(pre): rpm-helper
 Requires(post): rpm-helper
 
 %package -n drakx-finish-install
 Summary: First boot configuration
 Group: System/Configuration/Other
-Requires: %{name} = %version-%release
+Requires: %{name} = %{version}-%{release}
 Requires: drakx-installer-matchbox
 
 %package -n harddrake
 Summary: Main Hardware Configuration/Information Tool
 Group: System/Configuration/Hardware
-Requires: %{name}-curses = %version-%release
+Requires: %{name}-curses = %{version}-%{release}
 Obsoletes: kudzu, kudzu-devel, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
-Provides: kudzu = %version, kudzu-devel = %version, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
+Provides: kudzu = %{version}, kudzu-devel = %{version}, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
 Requires(pre): rpm-helper
 Requires(post): rpm-helper
 Requires: libdrakx-net drakx-kbd-mouse-x11 drak3d
@@ -96,7 +95,7 @@ Requires: meta-task
 %package -n harddrake-ui
 Summary: Main Hardware Configuration/Information Tool
 Group: System/Configuration/Hardware
-Requires: %name = %version-%release
+Requires: %{name} = %{version}-%{release}
 Requires: sane-backends
 Requires: libdrakx-net drakx-kbd-mouse-x11 drak3d
 
@@ -115,7 +114,7 @@ them work both under XFree (graphical environment) and in console
 - draksec: security options managment
 
 %description backend
-See package %name
+See package %{name}
 
 %description curses
 Contains many Mandriva Linux applications simplifying users and
@@ -184,15 +183,15 @@ hardware classes.
 %make -C perl-install CFLAGS="$RPM_OPT_FLAGS"
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-%make -C perl-install PREFIX=$RPM_BUILD_ROOT install
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{X11/xinit.d,X11/wmsession.d,sysconfig/harddrake2}
-touch $RPM_BUILD_ROOT/etc/sysconfig/harddrake2/previous_hw
+%make -C perl-install PREFIX=%{buildroot} install
+mkdir -p %{buildroot}%{_sysconfdir}/{X11/xinit.d,X11/wmsession.d,sysconfig/harddrake2}
+touch %{buildroot}/etc/sysconfig/harddrake2/previous_hw
 
 dirs1="usr/lib/libDrakX usr/share/libDrakX"
-(cd $RPM_BUILD_ROOT ; find $dirs1 usr/bin usr/sbin ! -type d -printf "/%%p\n")|egrep -v 'bin/.*harddrake' > %{name}.list
-(cd $RPM_BUILD_ROOT ; find $dirs1 -type d -printf "%%%%dir /%%p\n") >> %{name}.list
+(cd %{buildroot} ; find $dirs1 usr/bin usr/sbin ! -type d -printf "/%%p\n")|egrep -v 'bin/.*harddrake' > %{name}.list
+(cd %{buildroot} ; find $dirs1 -type d -printf "%%%%dir /%%p\n") >> %{name}.list
 
 perl -ni -e '/dbus_object\.pm|Xdrakres|clock|display_help|display_release_notes.pl|drak(bug|clock|dvb|floppy|font|hosts|log|sec|splash)|gtk|icons|logdrake|pixmaps|\.png$/ ? print STDERR $_ : print' %{name}.list 2> %{name}-gtk.list
 perl -ni -e '/http/ ? print STDERR $_ : print' %{name}.list 2> %{name}-http.list
@@ -200,25 +199,25 @@ perl -ni -e 'm!lib/libDrakX|bootloader-config|fileshare|lsnetdrake|drakupdate_fs
 perl -ni -e '/finish-install/ ? print STDERR $_ : print' %{name}.list 2> finish-install.list
 
 #mdk menu entry
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/autostart
+mkdir -p %{buildroot}%{_datadir}/autostart
 
-cat > $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit.d/harddrake2 <<EOF
+cat > %{buildroot}%{_sysconfdir}/X11/xinit.d/harddrake2 <<EOF
 #!/bin/sh
 exec /usr/share/harddrake/service_harddrake X11
 EOF
 
-cat > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/kernel <<EOF
+cat > %{buildroot}%{_sysconfdir}/sysconfig/harddrake2/kernel <<EOF
 KERNEL=2.6
 EOF
 
-mv $RPM_BUILD_ROOT%{_sbindir}/service_harddrake_confirm $RPM_BUILD_ROOT%{_datadir}/harddrake/confirm
+mv %{buildroot}%{_sbindir}/service_harddrake_confirm %{buildroot}%{_datadir}/harddrake/confirm
 
-chmod +x $RPM_BUILD_ROOT{%{_datadir}/harddrake/{conf*,service_harddrake},%{_sysconfdir}/X11/xinit.d/harddrake2}
+chmod +x %{buildroot}{%{_datadir}/harddrake/{conf*,service_harddrake},%{_sysconfdir}/X11/xinit.d/harddrake2}
 # temporary fix until we reenable this feature
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit.d/harddrake2
+rm -f %{buildroot}%{_sysconfdir}/X11/xinit.d/harddrake2
 
-perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/service.conf
-echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/service.conf
+perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > %{buildroot}%{_sysconfdir}/sysconfig/harddrake2/service.conf
+echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> %{buildroot}%{_sysconfdir}/sysconfig/harddrake2/service.conf
 
 # consolehelper config
 #
@@ -267,14 +266,14 @@ done
 
 %find_lang libDrakX
 %find_lang libDrakX-standalone
-cat libDrakX.lang libDrakX-standalone.lang >> %name.list
+cat libDrakX.lang libDrakX-standalone.lang >> %{name}.list
 
 %check
 cd perl-install
 %make check
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post
 %make_session
@@ -334,7 +333,7 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %config(noreplace) /etc/security/fileshare.conf
 %attr(4755,root,root) %{_sbindir}/fileshareset
 
-%files curses -f %name.list
+%files curses -f %{name}.list
 %defattr(-,root,root)
 %{_datadir}/applications/localedrake*.desktop
 %doc perl-install/diskdrake/diskdrake.html
