@@ -187,7 +187,7 @@ hardware classes.
 rm -rf $RPM_BUILD_ROOT
 
 %make -C perl-install PREFIX=$RPM_BUILD_ROOT install
-mkdir -p $RPM_BUILD_ROOT%_sysconfdir/{X11/xinit.d,X11/wmsession.d,sysconfig/harddrake2}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{X11/xinit.d,X11/wmsession.d,sysconfig/harddrake2}
 touch $RPM_BUILD_ROOT/etc/sysconfig/harddrake2/previous_hw
 
 dirs1="usr/lib/libDrakX usr/share/libDrakX"
@@ -202,23 +202,23 @@ perl -ni -e '/finish-install/ ? print STDERR $_ : print' %{name}.list 2> finish-
 #mdk menu entry
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/autostart
 
-cat > $RPM_BUILD_ROOT%_sysconfdir/X11/xinit.d/harddrake2 <<EOF
+cat > $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit.d/harddrake2 <<EOF
 #!/bin/sh
 exec /usr/share/harddrake/service_harddrake X11
 EOF
 
-cat > $RPM_BUILD_ROOT%_sysconfdir/sysconfig/harddrake2/kernel <<EOF
+cat > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/kernel <<EOF
 KERNEL=2.6
 EOF
 
-mv $RPM_BUILD_ROOT%_sbindir/service_harddrake_confirm $RPM_BUILD_ROOT%_datadir/harddrake/confirm
+mv $RPM_BUILD_ROOT%{_sbindir}/service_harddrake_confirm $RPM_BUILD_ROOT%{_datadir}/harddrake/confirm
 
-chmod +x $RPM_BUILD_ROOT{%_datadir/harddrake/{conf*,service_harddrake},%_sysconfdir/X11/xinit.d/harddrake2}
+chmod +x $RPM_BUILD_ROOT{%{_datadir}/harddrake/{conf*,service_harddrake},%{_sysconfdir}/X11/xinit.d/harddrake2}
 # temporary fix until we reenable this feature
-rm -f $RPM_BUILD_ROOT%_sysconfdir/X11/xinit.d/harddrake2
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit.d/harddrake2
 
-perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > $RPM_BUILD_ROOT%_sysconfdir/sysconfig/harddrake2/service.conf
-echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> $RPM_BUILD_ROOT%_sysconfdir/sysconfig/harddrake2/service.conf
+perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/service.conf
+echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/harddrake2/service.conf
 
 # consolehelper config
 #
@@ -278,13 +278,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %make_session
-[[ ! -e %_sbindir/kbdconfig ]] && %__ln_s -f keyboarddrake %_sbindir/kbdconfig
-[[ ! -e %_sbindir/mouseconfig ]] && %__ln_s -f mousedrake %_sbindir/mouseconfig
+[[ ! -e %{_sbindir}/kbdconfig ]] && %__ln_s -f keyboarddrake %{_sbindir}/kbdconfig
+[[ ! -e %{_sbindir}/mouseconfig ]] && %__ln_s -f mousedrake %{_sbindir}/mouseconfig
 :
 
 %postun
 %make_session
-for i in %_sbindir/kbdconfig %_sbindir/mouseconfig %_bindir/printtool;do
+for i in %{_sbindir}/kbdconfig %{_sbindir}/mouseconfig %{_bindir}/printtool;do
     [[ -L $i ]] && %__rm -f $i
 done
 :
@@ -316,11 +316,11 @@ done
 %endif
 
 %postun -n harddrake
-file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %_datadir/harddrake/convert || :
+file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddrake/convert || :
 
 %triggerpostun backend -- drakxtools-backend < 11.44
 echo "Migrating /etc/fstab and bootloader configuration to use UUIDs. Previous files are saved with extension .before-migrate-to-uuids"
-%_sbindir/bootloader-config --action migrate-to-uuids ||:
+%{_sbindir}/bootloader-config --action migrate-to-uuids ||:
 
 %triggerpostun backend -- drakxtools-backend < 11.52
 echo "Updating /etc/modprobe.preload.d/floppy"
@@ -332,15 +332,15 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %files backend -f %{name}-backend.list
 %defattr(-,root,root)
 %config(noreplace) /etc/security/fileshare.conf
-%attr(4755,root,root) %_sbindir/fileshareset
+%attr(4755,root,root) %{_sbindir}/fileshareset
 
 %files curses -f %name.list
 %defattr(-,root,root)
 %{_datadir}/applications/localedrake*.desktop
 %doc perl-install/diskdrake/diskdrake.html
-%_iconsdir/localedrake.png
-%_iconsdir/large/localedrake.png
-%_iconsdir/mini/localedrake.png
+%{_iconsdir}/localedrake.png
+%{_iconsdir}/large/localedrake.png
+%{_iconsdir}/mini/localedrake.png
 %{_bindir}/drakkeyboard
 %{_bindir}/drakmouse
 %{_bindir}/drakups
@@ -377,35 +377,35 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %dir /etc/sysconfig/harddrake2/
 %config(noreplace) /etc/sysconfig/harddrake2/previous_hw
 %config(noreplace) /etc/sysconfig/harddrake2/service.conf
-%config(noreplace) %_sysconfdir/sysconfig/harddrake2/kernel
-%dir %_datadir/harddrake/
-%_datadir/harddrake/*
-%_sysconfdir/X11/xsetup.d/??notify-x11-free-driver-switch.xsetup
-#%_sysconfdir/X11/xinit.d/harddrake2
+%config(noreplace) %{_sysconfdir}/sysconfig/harddrake2/kernel
+%dir %{_datadir}/harddrake/
+%{_datadir}/harddrake/*
+%{_sysconfdir}/X11/xsetup.d/??notify-x11-free-driver-switch.xsetup
+#%{_sysconfdir}/X11/xinit.d/harddrake2
 
 %files -n harddrake-ui
 %defattr(-,root,root)
 %dir /etc/sysconfig/harddrake2/
-%_sbindir/harddrake2
-%_datadir/pixmaps/harddrake2
+%{_sbindir}/harddrake2
+%{_datadir}/pixmaps/harddrake2
 %{_datadir}/applications/harddrake.desktop
-%_iconsdir/large/harddrake.png
-%_iconsdir/mini/harddrake.png
-%_iconsdir/harddrake.png
+%{_iconsdir}/large/harddrake.png
+%{_iconsdir}/mini/harddrake.png
+%{_iconsdir}/harddrake.png
 
 %files -n drakx-finish-install
 %defattr(-,root,root)
-%config(noreplace) %_sysconfdir/sysconfig/finish-install
-%_sysconfdir/X11/xsetup.d/??finish-install.xsetup
-%_sbindir/finish-install
+%config(noreplace) %{_sysconfdir}/sysconfig/finish-install
+%{_sysconfdir}/X11/xsetup.d/??finish-install.xsetup
+%{_sbindir}/finish-install
 
 %files http -f %{name}-http.list
 %defattr(-,root,root)
-%dir %_sysconfdir/drakxtools_http
-%config(noreplace) %_sysconfdir/pam.d/miniserv
-%_sysconfdir/init.d/drakxtools_http
-%config(noreplace) %_sysconfdir/drakxtools_http/conf
-%config(noreplace) %_sysconfdir/drakxtools_http/authorised_progs
-%config(noreplace) %_sysconfdir/logrotate.d/drakxtools-http
+%dir %{_sysconfdir}/drakxtools_http
+%config(noreplace) %{_sysconfdir}/pam.d/miniserv
+%{_sysconfdir}/init.d/drakxtools_http
+%config(noreplace) %{_sysconfdir}/drakxtools_http/conf
+%config(noreplace) %{_sysconfdir}/drakxtools_http/authorised_progs
+%config(noreplace) %{_sysconfdir}/logrotate.d/drakxtools-http
 
 
