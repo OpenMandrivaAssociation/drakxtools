@@ -100,7 +100,9 @@ Summary: Main Hardware Configuration/Information Tool
 Group: System/Configuration/Hardware
 Requires: %{name} = %{version}-%{release}
 Requires: sane-backends
-Requires: libdrakx-net drakx-kbd-mouse-x11 drak3d
+Requires: drakx-kbd-mouse-x11 
+Suggests: libdrakx-net 
+Suggests: drak3d
 
 %description
 Contains many Mandriva Linux applications simplifying users and
