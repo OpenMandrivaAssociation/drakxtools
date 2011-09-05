@@ -15,13 +15,13 @@ License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
 # files to which we symlink
-Requires: %{name}-curses = %{version}-%{release}, perl-Gtk2 >= 1.220, perl-Glib >= 1.072-1, usermode >= 1.92-4mdv2008.0, mandriva-doc-common >= 9.2-5, perl-Net-DBus, perl-Gtk2-WebKit
+Requires: %{name}-curses = %{version}-%{release}, perl-Gtk2 >= 1.220, perl-Glib >= 1.072-1, usermode >= 1.92-4, mandriva-doc-common >= 9.2-5, perl-Net-DBus, perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
 Requires: font-tools
 Requires: libxxf86misc
 # needed by any::enable_x_screensaver()
 Requires: xset
-Requires: drakx-net
+Suggests: drakx-net
 Requires: drakconf-icons
 # needed for installing packages through do_pkgs -> urpmi -> gmessage
 Requires: gurpmi >= 5.7
@@ -42,11 +42,12 @@ Obsoletes: draksec
 %package curses
 Summary: The drakxtools (diskdrake, ...)
 Group: System/Configuration/Other
-Requires: perl-base >= 2:5.8.6-1, urpmi >= 4.8.23, usermode-consoleonly >= 1.44-4
-Requires: perl-Locale-gettext >= 1.05-4mdv2007
+Requires: perl-base >= 2:5.8.6-1, usermode-consoleonly >= 1.44-4
+Requires: urpmi >= 4.8.23 
+Requires: perl-Locale-gettext >= 1.05-4
 Requires: module-init-tools
 Requires: %{name}-backend = %{version}-%{release}
-Requires: drakx-net-text
+Suggests: drakx-net-text
 Obsoletes: diskdrake kbdconfig mouseconfig setuptool drakfloppy
 Obsoletes: drakxtools-newt
 Provides: diskdrake, kbdconfig mouseconfig setuptool, drakfloppy = %{version}-%{release}
@@ -89,7 +90,9 @@ Obsoletes: kudzu, kudzu-devel, libdetect0, libdetect0-devel, libdetect-lst, libd
 Provides: kudzu = %{version}, kudzu-devel = %{version}, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
 Requires(pre): rpm-helper
 Requires(post): rpm-helper
-Requires: libdrakx-net drakx-kbd-mouse-x11 drak3d
+Requires: drakx-kbd-mouse-x11 
+Suggests: libdrakx-net 
+Suggests: drak3d
 Requires: meta-task
 
 %package -n harddrake-ui
