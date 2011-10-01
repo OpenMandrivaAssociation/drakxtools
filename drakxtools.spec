@@ -307,26 +307,6 @@ done
 %preun http
 %_preun_service drakxtools_http
 
-%if %mdkversion < 200900
-%post curses
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun curses
-%clean_menus
-%endif
-
-%if %mdkversion < 200900
-%post -n harddrake-ui
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun -n harddrake-ui
-%clean_menus
-%endif
-
 %postun -n harddrake
 file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddrake/convert || :
 
