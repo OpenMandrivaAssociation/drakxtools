@@ -1,7 +1,7 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.51
-Release: %mkrel 10
+Release: %mkrel 11
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %{name}-%{version}.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
@@ -11,6 +11,7 @@ Patch3:  drakxtools-13.51-faceicon.patch
 Patch4:  rosa-theme-fix.patch
 Patch5:  drakxtools-13.51-split-root-user.patch
 Patch6:  drakxtools-13.51.initrdinstall.patch
+Patch7:	 drakxtools-13.51-notification.patch
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
