@@ -1,27 +1,19 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
-Version: 13.51
-Release: %mkrel 17
+Version: 13.52
+Release: %mkrel 1
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %{name}-%{version}.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
 Patch1:  drakxtools-13.51.timeout.patch
 Patch2:  drakxtools-13.51-grub-password.patch
-Patch3:  drakxtools-13.51-faceicon.patch
 Patch4:  rosa-theme-fix.patch
 Patch5:  drakxtools-13.51-split-root-user.patch
 Patch6:  drakxtools-13.51.initrdinstall.patch
 Patch7:	 drakxtools-13.51-notification.patch
-Patch8:	 drakxtools-13.51-fs.patch
 Patch9:	 drakxtools-13.51-partition_table.patch
-Patch10: drakxtools-13.51-any.pm.patch
-Patch11: drakxtools-13.51-detect_devices.patch
-Patch12: drakxtools-13.51-harddrake.patch
-Patch13: drakxtools-13.51-drakfont.patch
 Patch14: drakxtools-13.51-secure.patch
 #Patch15: drakxtools-13.51-kernel_cmp.patch
-Patch16: drakxtools-13.51-l10n-ru.patch
-Patch17: drakxtools-13.51-cpufreq.patch
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
@@ -280,8 +272,8 @@ EOF
         ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
-%find_lang libDrakX
-%find_lang libDrakX-standalone
+%find_lang libDrakX libDrakX.lang
+%find_lang libDrakX-standalone libDrakX-standalone.lang
 cat libDrakX.lang libDrakX-standalone.lang >> %{name}.list
 
 %check
