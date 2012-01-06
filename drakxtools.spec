@@ -1,7 +1,7 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.52
-Release: %mkrel 1
+Release: %mkrel 2
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %{name}-%{version}.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
@@ -13,7 +13,8 @@ Patch6:  drakxtools-13.51.initrdinstall.patch
 Patch7:	 drakxtools-13.51-notification.patch
 Patch9:	 drakxtools-13.51-partition_table.patch
 Patch14: drakxtools-13.51-secure.patch
-#Patch15: drakxtools-13.51-kernel_cmp.patch
+# We need patch16 to fix issue with undefined symbol: get_pci_description
+Patch16: drakxtools-13.52-stuff-pci.patch
 License: GPLv2+
 Group: System/Configuration/Other
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
