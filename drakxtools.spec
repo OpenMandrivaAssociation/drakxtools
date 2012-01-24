@@ -205,6 +205,7 @@ dirs1="usr/lib/libDrakX usr/share/libDrakX"
 perl -ni -e '/dbus_object\.pm|Xdrakres|clock|display_help|display_release_notes.pl|drak(bug|clock|dvb|floppy|font|hosts|log|sec|splash)|gtk|icons|logdrake|pixmaps|\.png$/ ? print STDERR $_ : print' %{name}.list 2> %{name}-gtk.list
 perl -ni -e '/http/ ? print STDERR $_ : print' %{name}.list 2> %{name}-http.list
 perl -ni -e 'm!lib/libDrakX|bootloader-config|fileshare|lsnetdrake|drakupdate_fstab|rpcinfo|serial_probe! && !/curses/i ? print STDERR $_ : print' %{name}.list 2> %{name}-backend.list
+perl -pi -e 's|^(/usr/sbin/fileshareset)$|%%attr(4755,root,root) $1|;' %{name}-backend.list
 perl -ni -e '/finish-install/ ? print STDERR $_ : print' %{name}.list 2> finish-install.list
 
 #mdk menu entry
@@ -320,7 +321,6 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %files backend -f %{name}-backend.list
 %defattr(-,root,root)
 %config(noreplace) /etc/security/fileshare.conf
-%attr(4755,root,root) %{_sbindir}/fileshareset
 
 %files curses -f %{name}.list
 %defattr(-,root,root)
