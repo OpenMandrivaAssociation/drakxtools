@@ -2,6 +2,8 @@ Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.52
 Release: %mkrel 3
+License: GPLv2+
+Group: System/Configuration/Other
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0: %{name}-%{version}.tar.lzma
 Patch0:  drakxtools-13.51.silentboot.patch
@@ -15,47 +17,48 @@ Patch9:	 drakxtools-13.51-partition_table.patch
 Patch14: drakxtools-13.51-secure.patch
 # We need patch16 to fix issue with undefined symbol: get_pci_description
 Patch16: drakxtools-13.52-stuff-pci.patch
-License: GPLv2+
-Group: System/Configuration/Other
-# usermode 1.92-4mdv2008.0 has the /etc/pam.d/mandriva-{simple,console}-auth
+
+BuildRequires: gettext
+BuildRequires: ldetect-devel >= 0.9.0
+BuildRequires: ncurses-devel
+BuildRequires: perl-devel
+BuildRequires: perl-MDK-Common-devel
+BuildRequires: parted-devel
+BuildRequires: drakx-installer-binaries intltool
+
+# usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_real_vendor}-{simple,console}-auth
 # files to which we symlink
-Requires: %{name}-curses = %{version}-%{release}, perl-Gtk2 >= 1.220, perl-Glib >= 1.072-1, usermode >= 1.92-4, mandriva-doc-common >= 9.2-5, perl-Net-DBus, perl-Gtk2-WebKit
+Requires: %{name}-curses = %{version}-%{release}
+Requires: perl-Gtk2
+Requires: perl-Glib
+Requires: usermode
+Requires: %{_real_vendor}-doc-common
+Requires: perl-Net-DBus
+Requires: perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
 Requires: font-tools
 Requires: libxxf86misc
 # needed by any::enable_x_screensaver()
 Requires: xset
-Suggests: drakx-net
 Requires: drakconf-icons
 # needed for installing packages through do_pkgs -> urpmi -> gmessage
-Requires: gurpmi >= 5.7
-Conflicts: drakconf < drakconf-11.7.2
-Conflicts: rpmdrake < 3.26-1
-Conflicts: mandrake_doc-drakxtools-en < 9.2, mandrake_doc-drakxtools-es < 9.2, mandrake_doc-drakxtools-fr < 9.2
-Conflicts: bootloader-utils < 1.8-4, bootsplash < 2.1.7-1
-Conflicts: drakx-kbd-mouse-x11 < 0.91
-Conflicts: initscripts < 8.33-4
+Requires: gurpmi
 Requires: ldetect-lst >= 0.1.272
-BuildRequires: gettext, ldetect-devel >= 0.9.0, ncurses-devel, perl-devel >= 1:5.8.0-20, perl-MDK-Common-devel >= 1.1.8-3
-BuildRequires: parted-devel
-BuildRequires: drakx-installer-binaries intltool
-Provides: draksec
-Obsoletes: draksec
+Suggests: drakx-net
+
+Conflicts: drakx-kbd-mouse-x11 < 0.91
 %define _requires_exceptions perl(Net::FTP)\\|perl(Time::localtime)\\|perl(URPM)\\|perl(Xconfig.*)
 
 %package curses
 Summary: The drakxtools (diskdrake, ...)
 Group: System/Configuration/Other
-Requires: perl-base >= 2:5.8.6-1, usermode-consoleonly >= 1.44-4
-Requires: urpmi >= 4.8.23 
-Requires: perl-Locale-gettext >= 1.05-4
+Requires: perl-base
+Requires: usermode-consoleonly
+Requires: urpmi
+Requires: perl-Locale-gettext
 Requires: module-init-tools
 Requires: %{name}-backend = %{version}-%{release}
 Suggests: drakx-net-text
-Obsoletes: diskdrake kbdconfig mouseconfig setuptool drakfloppy
-Obsoletes: drakxtools-newt
-Provides: diskdrake, kbdconfig mouseconfig setuptool, drakfloppy = %{version}-%{release}
-Provides: drakxtools-newt = %{version}-%{release}
 %define _requires_exceptions perl(Gtk2::WebKit)\\|perl(Xconfig::various)
 
 %package backend
@@ -63,22 +66,18 @@ Summary: Drakxtools libraries and background tools
 Group: System/Configuration/Other
 Requires: dmidecode
 Requires: perl-File-FnMatch
-# for fileshareset and filesharelist (#17123)
-#Requires: perl-suid
-# for common::wrap_command_for_root()
 Requires: perl-String-ShellQuote
 # "post" here means %triggerpostun:
 Requires(post): perl-MDK-Common >= 1.2.27
-Conflicts: drakxtools-newt < 10-51
-Conflicts: drakx-net < 0.28
-Conflicts: e2fsprogs < 1.41.1-2mnb
 
 %package http
 Summary: The drakxtools via http
 Group: System/Configuration/Other
-Requires: %{name}-curses = %{version}-%{release}, perl(Net::SSLeay) >= 1.22-1, perl-Authen-PAM >= 0.14-1, perl-CGI >= 2.91-1
-Requires(pre): rpm-helper
-Requires(post): rpm-helper
+Requires: %{name}-curses = %{version}-%{release}
+Requires: perl(Net::SSLeay)
+Requires: perl-Authen-PAM
+Requires: perl-CGI
+Requires(pre,post): rpm-helper
 
 %package -n drakx-finish-install
 Summary: First boot configuration
@@ -90,14 +89,11 @@ Requires: drakx-installer-matchbox
 Summary: Main Hardware Configuration/Information Tool
 Group: System/Configuration/Hardware
 Requires: %{name}-curses = %{version}-%{release}
-Obsoletes: kudzu, kudzu-devel, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
-Provides: kudzu = %{version}, kudzu-devel = %{version}, libdetect0, libdetect0-devel, libdetect-lst, libdetect-lst-devel, detect, detect-lst
-Requires(pre): rpm-helper
-Requires(post): rpm-helper
+Requires(pre,post): rpm-helper
 Requires: drakx-kbd-mouse-x11 
+Requires: meta-task
 Suggests: libdrakx-net 
 Suggests: drak3d
-Requires: meta-task
 
 %package -n harddrake-ui
 Summary: Main Hardware Configuration/Information Tool
@@ -109,8 +105,8 @@ Suggests: libdrakx-net
 Suggests: drak3d
 
 %description
-Contains many Mandriva Linux applications simplifying users and
-administrators life on a Mandriva Linux machine. Nearly all of
+Contains many %{_vendor} Linux applications simplifying users and
+administrators life on a %{_vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
 (text environment), allowing easy distant work.
 
@@ -126,8 +122,8 @@ them work both under XFree (graphical environment) and in console
 See package %{name}
 
 %description curses
-Contains many Mandriva Linux applications simplifying users and
-administrators life on a Mandriva Linux machine. Nearly all of
+Contains many %{_vendor} Linux applications simplifying users and
+administrators life on a %{_vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
 (text environment), allowing easy distant work.
 
@@ -158,7 +154,7 @@ them work both under XFree (graphical environment) and in console
 
 %description http
 This package lets you configure your computer through your Web browser:
-it provides an HTTP interface to the Mandriva tools found in the drakxtools
+it provides an HTTP interface to the %{_vendor} tools found in the drakxtools
 package.
 
 %description -n drakx-finish-install
@@ -168,7 +164,6 @@ For OEM-like duplications, it allows at first boot:
 - setting root password
 - choosing authentication
 
-
 %description -n harddrake
 The harddrake service is a hardware probing tool run at system boot
 time to determine what hardware has been added or removed from the
@@ -176,13 +171,11 @@ system.
 It then offer to run needed config tool to update the OS
 configuration.
 
-
 %description -n harddrake-ui
 This is the main configuration tool for hardware that calls all the
 other configuration tools.
 It offers a nice GUI that show the hardware configuration splitted by
 hardware classes.
-
 
 %prep
 %setup -q
@@ -243,7 +236,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-        ln -sf %{_sysconfdir}/pam.d/mandriva-console-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-console-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 # console user, ask for user password
@@ -257,7 +250,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-        ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 # console user, ask for root password
@@ -271,7 +264,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d
-        ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 %find_lang libDrakX libDrakX.lang
@@ -281,9 +274,6 @@ cat libDrakX.lang libDrakX-standalone.lang >> %{name}.list
 %check
 cd perl-install
 %make check
-
-%clean
-rm -rf %{buildroot}
 
 %post
 %make_session
@@ -319,11 +309,9 @@ perl -I/usr/lib/libDrakX -Mharddrake::autoconf -e 'harddrake::autoconf::floppy()
 rm -f /etc/rc.d/*/{K,S}??harddrake
 
 %files backend -f %{name}-backend.list
-%defattr(-,root,root)
 %config(noreplace) /etc/security/fileshare.conf
 
 %files curses -f %{name}.list
-%defattr(-,root,root)
 %{_datadir}/applications/localedrake*.desktop
 %doc perl-install/diskdrake/diskdrake.html
 %{_iconsdir}/localedrake.png
@@ -352,7 +340,6 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %config(noreplace) %{_sysconfdir}/pam.d/drakboot
 
 %files -f %{name}-gtk.list
-%defattr(-,root,root)
 %{_bindir}/drakclock
 %{_bindir}/drakfont
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakclock
@@ -361,7 +348,6 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %config(noreplace) %{_sysconfdir}/pam.d/drakfont
 
 %files -n harddrake
-%defattr(-,root,root)
 %dir /etc/sysconfig/harddrake2/
 %config(noreplace) /etc/sysconfig/harddrake2/previous_hw
 %config(noreplace) /etc/sysconfig/harddrake2/service.conf
@@ -372,7 +358,6 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 #%{_sysconfdir}/X11/xinit.d/harddrake2
 
 %files -n harddrake-ui
-%defattr(-,root,root)
 %dir /etc/sysconfig/harddrake2/
 %{_sbindir}/harddrake2
 %{_datadir}/pixmaps/harddrake2
@@ -382,18 +367,15 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %{_iconsdir}/harddrake.png
 
 %files -n drakx-finish-install
-%defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/sysconfig/finish-install
 %{_sysconfdir}/X11/xsetup.d/??finish-install.xsetup
 %{_sbindir}/finish-install
 
 %files http -f %{name}-http.list
-%defattr(-,root,root)
 %dir %{_sysconfdir}/drakxtools_http
 %config(noreplace) %{_sysconfdir}/pam.d/miniserv
 %{_sysconfdir}/init.d/drakxtools_http
 %config(noreplace) %{_sysconfdir}/drakxtools_http/conf
 %config(noreplace) %{_sysconfdir}/drakxtools_http/authorised_progs
 %config(noreplace) %{_sysconfdir}/logrotate.d/drakxtools-http
-
 
