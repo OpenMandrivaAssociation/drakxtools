@@ -26,13 +26,13 @@ BuildRequires: perl-MDK-Common-devel
 BuildRequires: parted-devel
 BuildRequires: drakx-installer-binaries intltool
 
-# usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_real_vendor}-{simple,console}-auth
+# usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
 Requires: %{name}-curses = %{version}-%{release}
 Requires: perl-Gtk2
 Requires: perl-Glib
 Requires: usermode
-Requires: %{_real_vendor}-doc-common
+Requires: %{_vendor}-doc-common
 Requires: perl-Net-DBus
 Requires: perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
@@ -105,8 +105,8 @@ Suggests: libdrakx-net
 Suggests: drak3d
 
 %description
-Contains many %{_vendor} Linux applications simplifying users and
-administrators life on a %{_vendor} Linux machine. Nearly all of
+Contains many %{vendor} Linux applications simplifying users and
+administrators life on a %{vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
 (text environment), allowing easy distant work.
 
@@ -122,8 +122,8 @@ them work both under XFree (graphical environment) and in console
 See package %{name}
 
 %description curses
-Contains many %{_vendor} Linux applications simplifying users and
-administrators life on a %{_vendor} Linux machine. Nearly all of
+Contains many %{vendor} Linux applications simplifying users and
+administrators life on a %{vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
 (text environment), allowing easy distant work.
 
@@ -154,7 +154,7 @@ them work both under XFree (graphical environment) and in console
 
 %description http
 This package lets you configure your computer through your Web browser:
-it provides an HTTP interface to the %{_vendor} tools found in the drakxtools
+it provides an HTTP interface to the %{vendor} tools found in the drakxtools
 package.
 
 %description -n drakx-finish-install
@@ -236,7 +236,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-console-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_vendor}-console-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 # console user, ask for user password
@@ -250,7 +250,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 # console user, ask for root password
@@ -264,7 +264,7 @@ FALLBACK=false
 SESSION=true
 EOF
         mkdir -p %{buildroot}%{_sysconfdir}/pam.d
-        ln -sf %{_sysconfdir}/pam.d/%{_real_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
+        ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
 
 %find_lang libDrakX libDrakX.lang
