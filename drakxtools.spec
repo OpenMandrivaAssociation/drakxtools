@@ -1,7 +1,7 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
 Version: 13.52
-Release: %mkrel 4
+Release: 5
 License: GPLv2+
 Group: System/Configuration/Other
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
@@ -25,7 +25,8 @@ BuildRequires: ncurses-devel
 BuildRequires: perl-devel
 BuildRequires: perl-MDK-Common-devel
 BuildRequires: parted-devel
-BuildRequires: drakx-installer-binaries intltool
+BuildRequires: drakx-installer-binaries
+BuildRequires: intltool
 
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
@@ -186,8 +187,6 @@ hardware classes.
 %make -C perl-install CFLAGS="$RPM_OPT_FLAGS"
 
 %install
-rm -rf %{buildroot}
-
 %make -C perl-install PREFIX=%{buildroot} install
 mkdir -p %{buildroot}%{_sysconfdir}/{X11/xinit.d,X11/wmsession.d,sysconfig/harddrake2}
 touch %{buildroot}/etc/sysconfig/harddrake2/previous_hw
