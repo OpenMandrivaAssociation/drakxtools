@@ -45,7 +45,7 @@ Requires:       ldetect-lst >= 0.1.272
 Suggests:       drakx-net
 
 Conflicts:      drakx-kbd-mouse-x11 < 0.91
-%define _requires_exceptions perl(Net::FTP)\\|perl(Time::localtime)\\|perl(URPM)\\|perl(Xconfig.*)
+%define __noautoreq 'perl\\((Net::FTP|Time::localetime|URPM|Xconfig.*|Gtk2::WebKit)\\)'
 
 %package        curses
 Summary:        The drakxtools (diskdrake, ...)
@@ -57,7 +57,6 @@ Requires:       perl-Locale-gettext
 Requires:       module-init-tools
 Requires:       %{name}-backend = %{version}-%{release}
 Suggests:       drakx-net-text
-%define _requires_exceptions perl(Gtk2::WebKit)\\|perl(Xconfig::various)
 
 %package        backend
 Summary:        Drakxtools libraries and background tools 
