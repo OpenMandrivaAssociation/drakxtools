@@ -1,22 +1,18 @@
 Summary: The drakxtools (diskdrake, ...)
 Name:    drakxtools
-Version: 13.52
-Release: 5
+Version: 14.22
+Release: 1
 License: GPLv2+
 Group: System/Configuration/Other
 Url:     http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
-Source0: %{name}-%{version}.tar.lzma
-Patch0:  drakxtools-13.51.silentboot.patch
-Patch1:  drakxtools-13.51.timeout.patch
-Patch2:  drakxtools-13.51-grub-password.patch
+Source0: %{name}-%{version}.tar.xz
+Patch1:  drakxtools-14.22.timeout.patch
+Patch2:  drakxtools-14.22-grub-password.patch
 Patch4:  rosa-theme-fix.patch
 Patch5:  drakxtools-13.51-split-root-user.patch
-Patch6:  drakxtools-13.51.initrdinstall.patch
-Patch7:	 drakxtools-13.51-notification.patch
-Patch9:	 drakxtools-13.51-partition_table.patch
-Patch14: drakxtools-13.51-secure.patch
+Patch6:  drakxtools-14.22.initrdinstall.patch
 # We need patch16 to fix issue with undefined symbol: get_pci_description
-Patch16: drakxtools-13.52-stuff-pci.patch
+#Patch16: drakxtools-13.52-stuff-pci.patch
 Patch17: drakxtools-13.52-grub2.patch
 
 BuildRequires: gettext
