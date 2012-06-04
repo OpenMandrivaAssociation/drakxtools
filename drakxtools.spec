@@ -1,6 +1,6 @@
 Summary:        The drakxtools (diskdrake, ...)
 Name:           drakxtools
-Version:        14.22
+Version:        14.23
 Release:        1
 License:        GPLv2+
 Group:          System/Configuration/Other
