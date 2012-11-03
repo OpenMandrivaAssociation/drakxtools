@@ -23,6 +23,7 @@ BuildRequires:  perl-MDK-Common-devel
 BuildRequires:  parted-devel
 BuildRequires:  drakx-installer-binaries
 BuildRequires:  intltool
+BuildRequires:	pkgconfig(libtirpc)
 
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
