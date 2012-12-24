@@ -17,31 +17,31 @@ Patch17:	drakxtools-13.52-grub2.patch
 # rosa patches
 Patch20:	drakxtools-14.31-remove_nss_updatedb.patch
 
+BuildRequires:	drakx-installer-binaries
 BuildRequires:	gettext
+BuildRequires:	intltool
 BuildRequires:	ldetect-devel >= 0.9.0
-BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-MDK-Common-devel
-BuildRequires:	parted-devel
-BuildRequires:	drakx-installer-binaries
-BuildRequires:	intltool
+BuildRequires:	pkgconfig(libparted)
 BuildRequires:	pkgconfig(libtirpc)
+BuildRequires:	pkgconfig(ncurses)
 
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
 Requires:	%{name}-curses = %{version}-%{release}
+Requires:	%{_vendor}-doc-common
 Requires:	perl-Gtk2
 Requires:	perl-Glib
-Requires:	usermode
-Requires:	%{_vendor}-doc-common
 Requires:	perl-Net-DBus
 Requires:	perl-Gtk2-WebKit
+Requires:	usermode
 # needed by drakfont (eg: type1inst):
 Requires:	font-tools
 Requires:	libxxf86misc
 # needed by any::enable_x_screensaver()
-Requires:	xset
 Requires:	drakconf-icons
+Requires:	xset
 # needed for installing packages through do_pkgs -> urpmi -> gmessage
 Requires:	gurpmi
 Requires:	ldetect-lst >= 0.1.272
@@ -122,9 +122,9 @@ See package %{name}
 Summary:	The drakxtools via http
 Group:		System/Configuration/Other
 Requires:	%{name}-curses = %{version}-%{release}
-Requires:	perl(Net::SSLeay)
 Requires:	perl-Authen-PAM
 Requires:	perl-CGI
+Requires:	perl(Net::SSLeay)
 Requires(pre,post):	rpm-helper
 
 %description	http
@@ -166,8 +166,8 @@ configuration.
 Summary:	Main Hardware Configuration/Information Tool
 Group:		System/Configuration/Hardware
 Requires:	%{name} = %{version}-%{release}
-Requires:	sane-backends
 Requires:	drakx-kbd-mouse-x11 
+Requires:	sane-backends
 Suggests:	libdrakx-net 
 Suggests:	drak3d
 
