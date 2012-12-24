@@ -1,0 +1,44 @@
+--- drakxtools-13.52/perl-install/bootloader.pm.orig	2011-12-19 22:02:25.000000000 +0400
++++ drakxtools-13.52/perl-install/bootloader.pm	2012-02-20 17:10:57.984069623 +0400
+@@ -1786,7 +1786,18 @@
+ 		       if_($entry->{'read-write'}, 'rw'),
+ 		       if_($vga && $vga ne "normal", "vga=$vga"));
+ 		push @conf, "module " . $_ foreach @{$entry->{modules} || []};
+-		push @conf, join(' ', $entry->{xen} ? 'module' : 'initrd', $file2grub->($entry->{initrd})) if $entry->{initrd};
++		if ($entry->{initrd}) {
++		    # split partition from initrd path and place
++		    # it to a separate 'root' entry.
++		    # Grub2's mkconfig takes initrd entry 'as is',
++		    # but gru2 fails to load smth like '(hd0,1)/boot/initrd' taken from grub-legacy
++		    my $initrd_path = $file2grub->($entry->{initrd});
++		    if( $initrd_path =~ /^(\([^\)]+\))/ ) {
++			push @conf, "root $1";
++			$initrd_path =~ s/^(\([^\)]+\))//;
++		    }
++		    push @conf, join(' ', $entry->{xen} ? 'module' : 'initrd', $initrd_path);
++		}
+ 	    } else {
+ 		my $dev = eval { device_string2grub($entry->{kernel_or_dev}, \@legacy_floppies, \@sorted_hds) };
+ 		if (!$dev) {
+@@ -1810,7 +1821,9 @@
+ 		    push @conf, map_each { "map ($::b) ($::a)" } %{$entry->{mapdrive}};
+ 		}
+ 		push @conf, "makeactive" if $entry->{makeactive};
+-		if ($entry->{type} eq 'grub_configfile') {
++		# grub.cfg is grub2 config, can't use it as configfile for grub-legacy
++		if ($entry->{type} eq 'grub_configfile' and $entry->{configfile} !~ /grub\.cfg/) {
++		    print "CFG: pushing '$entry->{configfile}'\n";
+ 		    push @conf, "configfile $entry->{configfile}";
+ 		} else {
+ 		    push @conf, "chainloader +1";
+@@ -1967,6 +1980,10 @@
+ 	    my $f = find { -e "$handle->{dir}$bootdir/$_" } 'grub.conf', 'grub/menu.lst' or next;
+ 	    push @l, { bootpart => $part, bootdir => $bootdir, grub_conf => "$bootdir/$f" };
+ 	}
++	foreach my $bootdir ('', '/boot', '/boot/grub', '/boot/grub2') {
++	    my $f = find { -e "$handle->{dir}$bootdir/$_" } 'grub.cfg' or next;
++	    push @l, { bootpart => $part, bootdir => $bootdir, grub_conf => "$bootdir/$f" };
++	}
+ 	if (my $f = common::release_file($handle->{dir})) {
+ 	    my $h = common::parse_release_file($handle->{dir}, $f, $part);
+ 	    $h->{name} = $h->{release};

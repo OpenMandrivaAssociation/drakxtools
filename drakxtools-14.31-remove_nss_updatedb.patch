@@ -1,0 +1,14 @@
+diff -Naur drakxtools-14.31/perl-install/authentication.pm drakxtools-new/perl-install/authentication.pm
+--- drakxtools-14.31/perl-install/authentication.pm	2012-11-14 14:23:45.000000000 +0400
++++ drakxtools-new/perl-install/authentication.pm	2012-11-23 15:37:12.606508940 +0400
+@@ -52,8 +52,8 @@
+ my %kind2packages = (
+     local     => [],
+     SmartCard => [ 'castella-pam' ],
+-    LDAP      => [ 'openldap-clients', 'nss_ldap', 'pam_ldap', 'autofs', 'nss_updatedb' ],
+-    KRB5       => [ 'nss_ldap', 'pam_krb5', "${lib}sasl2-plug-gssapi", 'nss_updatedb' ],
++    LDAP      => [ 'openldap-clients', 'nss_ldap', 'pam_ldap', 'autofs' ],
++    KRB5       => [ 'nss_ldap', 'pam_krb5', "${lib}sasl2-plug-gssapi" ],
+     NIS       => [ 'ypbind', 'autofs' ],
+     winbind   => [ 'samba-winbind', 'nss_ldap', 'pam_krb5', "${lib}sasl2-plug-gssapi" ],
+ );
