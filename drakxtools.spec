@@ -1,54 +1,103 @@
-Summary:	The drakxtools (diskdrake, ...)
-Name:		drakxtools
-Version:	14.33
-Release:	2
-License:	GPLv2+
-Group:		System/Configuration/Other
-Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
-Source0:	%{name}-%{version}.tar.xz
-Patch1:		drakxtools-14.22.timeout.patch
-Patch2:		drakxtools-14.22-grub-password.patch
-Patch4:		rosa-theme-fix.patch
-Patch5:		drakxtools-13.51-split-root-user.patch
-Patch6:		drakxtools-14.22.initrdinstall.patch
-# We need patch16 to fix issue with undefined symbol: get_pci_description
-#Patch16: drakxtools-13.52-stuff-pci.patch
-Patch17:	drakxtools-13.52-grub2.patch
-# rosa patches
-Patch20:	drakxtools-14.31-remove_nss_updatedb.patch
+Summary:        The drakxtools (diskdrake, ...)
+Name:           drakxtools
+Version:        14.35
+Release:        1
+License:        GPLv2+
+Group:          System/Configuration/Other
+Url:            http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
+Source0:        %{name}-%{version}.tar.xz
+Patch1:         drakxtools-14.22.timeout.patch
+Patch2:         drakxtools-14.22-grub-password.patch
+Patch4:         rosa-theme-fix.patch
+Patch5:         drakxtools-13.51-split-root-user.patch
+Patch6:         drakxtools-14.22.initrdinstall.patch
 
-BuildRequires:	drakx-installer-binaries
-BuildRequires:	gettext
-BuildRequires:	intltool
-BuildRequires:	ldetect-devel >= 0.9.0
-BuildRequires:	perl-devel
-BuildRequires:	perl-MDK-Common-devel
-BuildRequires:	pkgconfig(libparted)
+BuildRequires:  gettext
+BuildRequires:  ldetect-devel >= 0.9.0
+BuildRequires:  ncurses-devel
+BuildRequires:  perl-devel
+BuildRequires:  perl-MDK-Common-devel
+BuildRequires:  parted-devel
+BuildRequires:  drakx-installer-binaries
+BuildRequires:  intltool
 BuildRequires:	pkgconfig(libtirpc)
-BuildRequires:	pkgconfig(ncurses)
 
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
-Requires:	%{name}-curses = %{version}-%{release}
-Requires:	%{_vendor}-doc-common
-Requires:	perl-Gtk2
-Requires:	perl-Glib
-Requires:	perl-Net-DBus
-Requires:	perl-Gtk2-WebKit
-Requires:	usermode
+Requires:       %{name}-curses = %{version}-%{release}
+Requires:       perl-Gtk2
+Requires:       perl-Glib
+Requires:       usermode
+Requires:       %{_vendor}-doc-common
+Requires:       perl-Net-DBus
+Requires:       perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
-Requires:	font-tools
-Requires:	libxxf86misc
+Requires:       font-tools
+Requires:       libxxf86misc
 # needed by any::enable_x_screensaver()
-Requires:	drakconf-icons
-Requires:	xset
+Requires:       xset
+Requires:       drakconf-icons
 # needed for installing packages through do_pkgs -> urpmi -> gmessage
-Requires:	gurpmi
-Requires:	ldetect-lst >= 0.1.272
-Suggests:	drakx-net
+Requires:       gurpmi
+Requires:       ldetect-lst >= 0.1.272
+Suggests:       drakx-net
 
-Conflicts:	drakx-kbd-mouse-x11 < 0.91
+Conflicts:      drakx-kbd-mouse-x11 < 0.91
 %define __noautoreq 'perl\\((Net::FTP|Time::localetime|URPM|Xconfig.*|Gtk2::WebKit)\\)'
+
+%package        curses
+Summary:        The drakxtools (diskdrake, ...)
+Group:          System/Configuration/Other
+Requires:       perl-base
+Requires:       usermode-consoleonly
+Requires:       urpmi
+Requires:       perl-Locale-gettext
+Requires:       module-init-tools
+Requires:       %{name}-backend = %{version}-%{release}
+Suggests:       drakx-net-text
+
+%package        backend
+Summary:        Drakxtools libraries and background tools 
+Group:          System/Configuration/Other
+Requires:       dmidecode
+Requires:       perl-File-FnMatch
+Requires:       perl-String-ShellQuote
+# "post" here means %triggerpostun:
+Requires(post): perl-MDK-Common >= 1.2.27
+
+%package        http
+Summary:        The drakxtools via http
+Group:          System/Configuration/Other
+Requires:       %{name}-curses = %{version}-%{release}
+Requires:       perl(Net::SSLeay)
+Requires:       perl-Authen-PAM
+Requires:       perl-CGI
+Requires(pre,post):rpm-helper
+
+%package -n     drakx-finish-install
+Summary:        First boot configuration
+Group:          System/Configuration/Other
+Requires:       %{name} = %{version}-%{release}
+Requires:       drakx-installer-matchbox
+
+%package -n     harddrake
+Summary:        Main Hardware Configuration/Information Tool
+Group:          System/Configuration/Hardware
+Requires:       %{name}-curses = %{version}-%{release}
+Requires(pre,post):rpm-helper
+Requires:       drakx-kbd-mouse-x11 
+Requires:       meta-task
+Suggests:       libdrakx-net 
+Suggests:       drak3d
+
+%package -n     harddrake-ui
+Summary:        Main Hardware Configuration/Information Tool
+Group:          System/Configuration/Hardware
+Requires:       %{name} = %{version}-%{release}
+Requires:       sane-backends
+Requires:       drakx-kbd-mouse-x11 
+Suggests:       libdrakx-net 
+Suggests:       drak3d
 
 %description
 Contains many %{vendor} Linux applications simplifying users and
@@ -64,18 +113,10 @@ them work both under XFree (graphical environment) and in console
 - draklog: show extracted information from the system logs
 - draksec: security options managment
 
-%package	curses
-Summary:	The drakxtools (diskdrake, ...)
-Group:		System/Configuration/Other
-Requires:	perl-base
-Requires:	usermode-consoleonly
-Requires:	urpmi
-Requires:	perl-Locale-gettext
-Requires:	module-init-tools
-Requires:	%{name}-backend = %{version}-%{release}
-Suggests:	drakx-net-text
+%description    backend
+See package %{name}
 
-%description	curses
+%description    curses
 Contains many %{vendor} Linux applications simplifying users and
 administrators life on a %{vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
@@ -106,72 +147,26 @@ them work both under XFree (graphical environment) and in console
 - lspcidrake: display your pci information, *and* the corresponding
   kernel module
 
-%package	backend
-Summary:	Drakxtools libraries and background tools 
-Group:		System/Configuration/Other
-Requires:	dmidecode
-Requires:	perl-File-FnMatch
-Requires:	perl-String-ShellQuote
-# "post" here means %triggerpostun:
-Requires(post):	perl-MDK-Common >= 1.2.27
-
-%description	backend
-See package %{name}
-
-%package	http
-Summary:	The drakxtools via http
-Group:		System/Configuration/Other
-Requires:	%{name}-curses = %{version}-%{release}
-Requires:	perl-Authen-PAM
-Requires:	perl-CGI
-Requires:	perl(Net::SSLeay)
-Requires(pre,post):	rpm-helper
-
-%description	http
+%description    http
 This package lets you configure your computer through your Web browser:
 it provides an HTTP interface to the %{vendor} tools found in the drakxtools
 package.
 
-%package -n	drakx-finish-install
-Summary:	First boot configuration
-Group:		System/Configuration/Other
-Requires:	%{name} = %{version}-%{release}
-Requires:	drakx-installer-matchbox
-
-%description -n	drakx-finish-install
+%description -n drakx-finish-install
 For OEM-like duplications, it allows at first boot:
 - network configuration
 - creating users
 - setting root password
 - choosing authentication
 
-%package -n	harddrake
-Summary:	Main Hardware Configuration/Information Tool
-Group:		System/Configuration/Hardware
-Requires:	%{name}-curses = %{version}-%{release}
-Requires(pre,post):	rpm-helper
-Requires:	drakx-kbd-mouse-x11 
-Requires:	meta-task
-Suggests:	libdrakx-net 
-Suggests:	drak3d
-
-%description -n	harddrake
+%description -n harddrake
 The harddrake service is a hardware probing tool run at system boot
 time to determine what hardware has been added or removed from the
 system.
 It then offer to run needed config tool to update the OS
 configuration.
 
-%package -n	harddrake-ui
-Summary:	Main Hardware Configuration/Information Tool
-Group:		System/Configuration/Hardware
-Requires:	%{name} = %{version}-%{release}
-Requires:	drakx-kbd-mouse-x11 
-Requires:	sane-backends
-Suggests:	libdrakx-net 
-Suggests:	drak3d
-
-%description -n	harddrake-ui
+%description -n harddrake-ui
 This is the main configuration tool for hardware that calls all the
 other configuration tools.
 It offers a nice GUI that show the hardware configuration splitted by
@@ -376,4 +371,3 @@ rm -f /etc/rc.d/*/{K,S}??harddrake
 %config(noreplace) %{_sysconfdir}/drakxtools_http/conf
 %config(noreplace) %{_sysconfdir}/drakxtools_http/authorised_progs
 %config(noreplace) %{_sysconfdir}/logrotate.d/drakxtools-http
-
