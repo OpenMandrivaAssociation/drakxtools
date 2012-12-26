@@ -59,8 +59,6 @@ Summary:	Drakxtools libraries and background tools
 Group:		System/Configuration/Other
 Requires:	dmidecode
 Requires:	perl-File-FnMatch
-# "post" here means %triggerpostun:
-Requires(post):	perl-MDK-Common >= 1.2.27
 
 %package	http
 Summary:	The drakxtools via http
@@ -285,17 +283,6 @@ done
 
 %postun -n harddrake
 file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddrake/convert || :
-
-%triggerpostun backend -- drakxtools-backend < 11.44
-echo "Migrating /etc/fstab and bootloader configuration to use UUIDs. Previous files are saved with extension .before-migrate-to-uuids"
-%{_sbindir}/bootloader-config --action migrate-to-uuids ||:
-
-%triggerpostun backend -- drakxtools-backend < 11.52
-echo "Updating /etc/modprobe.preload.d/floppy"
-perl -I/usr/lib/libDrakX -Mharddrake::autoconf -e 'harddrake::autoconf::floppy()' ||:
-
-%triggerpostun -n harddrake -- harddrake < 11.62-2
-rm -f /etc/rc.d/*/{K,S}??harddrake
 
 %files backend -f %{name}-backend.list
 %config(noreplace) /etc/security/fileshare.conf
