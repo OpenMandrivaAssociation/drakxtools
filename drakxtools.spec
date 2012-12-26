@@ -25,8 +25,6 @@ BuildRequires:	pkgconfig(libtirpc)
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
 Requires:	%{name}-curses = %{version}-%{release}
-Requires:	perl-Gtk2
-Requires:	perl-Glib
 Requires:	usermode
 Requires:	%{_vendor}-doc-common
 Requires:	perl-Net-DBus
@@ -61,7 +59,6 @@ Summary:	Drakxtools libraries and background tools
 Group:		System/Configuration/Other
 Requires:	dmidecode
 Requires:	perl-File-FnMatch
-Requires:	perl-String-ShellQuote
 # "post" here means %triggerpostun:
 Requires(post):	perl-MDK-Common >= 1.2.27
 
@@ -71,7 +68,6 @@ Group:		System/Configuration/Other
 Requires:	%{name}-curses = %{version}-%{release}
 Requires:	perl(Net::SSLeay)
 Requires:	perl-Authen-PAM
-Requires:	perl-CGI
 Requires(pre,post):rpm-helper
 
 %package -n	drakx-finish-install
