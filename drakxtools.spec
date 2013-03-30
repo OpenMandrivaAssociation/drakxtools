@@ -16,7 +16,7 @@ BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
 BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
-BuildRequires:	perl-MDK-Common-devel
+BuildRequires:	perl-MDK-Common perl-MDK-Common-devel
 BuildRequires:	parted-devel
 BuildRequires:	drakx-installer-binaries
 BuildRequires:	intltool
