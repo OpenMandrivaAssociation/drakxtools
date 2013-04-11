@@ -1,2 +1,2 @@
-# many,many binary files without +x
+#added filter for *-http package
 addFilter("E: description-line-too-long")

@@ -6,6 +6,7 @@ License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
 Source0:	%{name}-%{version}.tar.xz
+Source1:        drakxtools.rpmlintrc
 Patch1:		drakxtools-14.22.timeout.patch
 Patch2:		drakxtools-14.22-grub-password.patch
 #Patch4:		rosa-theme-fix.patch
