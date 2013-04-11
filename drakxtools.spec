@@ -1,7 +1,7 @@
 Summary:	The drakxtools (diskdrake, ...)
 Name:		drakxtools
 Version:	14.40
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
