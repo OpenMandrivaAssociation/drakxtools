@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   drakxtools-14.39.tar.xz: 899d9b0f4b1dc32468a14c20ba1fb535d3ce2936
+sources:
+  drakxtools-14.40.tar.xz: 0cebbf5131b90f0d721aa67a4816942738b61984
