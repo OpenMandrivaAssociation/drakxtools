@@ -1,0 +1,2 @@
+#added filter for *-http package
+addFilter("E: description-line-too-long")
