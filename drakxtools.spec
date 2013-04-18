@@ -1,7 +1,7 @@
 Summary:	The drakxtools (diskdrake, ...)
 Name:		drakxtools
 Version:	14.41
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
@@ -12,6 +12,7 @@ Patch2:		drakxtools-14.22-grub-password.patch
 #Patch4:		rosa-theme-fix.patch
 Patch5:		drakxtools-13.51-split-root-user.patch
 Patch6:		drakxtools-14.22.initrdinstall.patch
+Patch7:         drakxtools.background-and-lang.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
