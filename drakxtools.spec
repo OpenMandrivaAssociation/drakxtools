@@ -14,6 +14,7 @@ Patch5:		drakxtools-13.51-split-root-user.patch
 Patch6:		drakxtools-14.22.initrdinstall.patch
 Patch7:         drakxtools.background-and-lang.patch
 Patch8:         drakxtools-14.41.remove_unused_locales.patch
+Patch9:		drakxtools.remove-openvpn-selection.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
