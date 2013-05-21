@@ -1,7 +1,7 @@
 Summary:	The drakxtools (diskdrake, ...)
 Name:		drakxtools
 Version:	14.41
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
@@ -15,6 +15,7 @@ Patch6:		drakxtools-14.22.initrdinstall.patch
 Patch7:         drakxtools.background-and-lang.patch
 Patch8:         drakxtools-14.41.remove_unused_locales.patch
 Patch9:		drakxtools.remove-openvpn-selection.patch
+Patch10:	drakxtools.temporary-update-license.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
