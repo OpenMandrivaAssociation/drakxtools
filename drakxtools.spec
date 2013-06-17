@@ -16,6 +16,7 @@ Patch7:         drakxtools.background-and-lang.patch
 Patch8:         drakxtools-14.41.remove_unused_locales.patch
 Patch9:		drakxtools.remove-openvpn-selection.patch
 Patch10:	drakxtools.temporary-update-license.patch
+Patch11:	drakbug.openmandriva.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
