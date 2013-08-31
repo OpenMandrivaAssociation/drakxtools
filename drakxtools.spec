@@ -1,10 +1,10 @@
 # break circular dependency
-%bcond_without	bootstrap
+%bcond_with	bootstrap
 
 Summary:	The drakxtools (diskdrake, ...)
 Name:		drakxtools
 Version:	14.41
-Release:	8
+Release:	9
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
