@@ -28,7 +28,7 @@ BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-MDK-Common perl-MDK-Common-devel
 BuildRequires:	parted-devel
-%if %{with bootstrap}
+%if !%{with bootstrap}
 BuildRequires:	drakx-installer-binaries
 %endif
 BuildRequires:	intltool
