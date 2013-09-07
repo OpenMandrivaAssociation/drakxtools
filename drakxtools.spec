@@ -1,7 +1,10 @@
+# break circular dependency
+%bcond_with	bootstrap
+
 Summary:	The drakxtools (diskdrake, ...)
 Name:		drakxtools
 Version:	14.41
-Release:	8
+Release:	10
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
@@ -18,6 +21,7 @@ Patch8:         drakxtools-14.41.remove_unused_locales.patch
 Patch9:		drakxtools.remove-openvpn-selection.patch
 Patch10:	drakxtools.temporary-update-license.patch
 Patch11:	drakbug.openmandriva.patch
+Patch12:	0001-handle-etc-locale.conf-by-default-this-file-should-c.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
@@ -25,7 +29,9 @@ BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-MDK-Common perl-MDK-Common-devel
 BuildRequires:	parted-devel
+%if !%{with bootstrap}
 BuildRequires:	drakx-installer-binaries
+%endif
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(libtirpc)
 
