@@ -1,23 +1,23 @@
 # break circular dependency
 %bcond_with	bootstrap
 
-Summary:	The drakxtools (diskdrake, ...)
+Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.41
-Release:	11
+Release:	12
 License:	GPLv2+
 Group:		System/Configuration/Other
-Url:		http://wiki.mandriva.com/en/Development/Docs/drakxtools_dev
+Url:		https://abf.rosalinux.ru/omv_software/drakx
 Source0:	%{name}-%{version}.tar.xz
-Source1:        drakxtools.rpmlintrc
+Source1:	drakxtools.rpmlintrc
 Patch1:		drakxtools-14.22.timeout.patch
 Patch2:		drakxtools-14.22-grub-password.patch
 Patch3:		drakxtools-14.41-release.sh-rename.patch
-#Patch4:		rosa-theme-fix.patch
+#Patch4:	rosa-theme-fix.patch
 Patch5:		drakxtools-13.51-split-root-user.patch
 Patch6:		drakxtools-14.22.initrdinstall.patch
-Patch7:         drakxtools.background-and-lang.patch
-Patch8:         drakxtools-14.41.remove_unused_locales.patch
+Patch7:		drakxtools.background-and-lang.patch
+Patch8:		drakxtools-14.41.remove_unused_locales.patch
 Patch9:		drakxtools.remove-openvpn-selection.patch
 Patch10:	drakxtools.temporary-update-license.patch
 Patch11:	drakbug.openmandriva.patch
@@ -57,7 +57,7 @@ Suggests:	drakx-net
 Conflicts:	drakx-kbd-mouse-x11 < 0.91
 %define __noautoreq 'perl\\((Net::FTP|Time::localetime|URPM|Xconfig.*|Gtk2::WebKit)\\)'
 
-%package	curses
+%package curses
 Summary:	The drakxtools (diskdrake, ...)
 Group:		System/Configuration/Other
 Requires:	perl-base
@@ -68,19 +68,19 @@ Requires:	module-init-tools
 Requires:	%{name}-backend = %{version}-%{release}
 Suggests:	drakx-net-text
 
-%package	backend
+%package backend
 Summary:	Drakxtools libraries and background tools 
 Group:		System/Configuration/Other
 Requires:	dmidecode
 Requires:	perl-File-FnMatch
 
-%package	http
+%package http
 Summary:	The drakxtools via http
 Group:		System/Configuration/Other
 Requires:	%{name}-curses = %{version}-%{release}
 Requires:	perl(Net::SSLeay)
 Requires:	perl-Authen-PAM
-Requires(pre,post):rpm-helper
+Requires(pre,post):	rpm-helper
 
 %package -n	drakx-finish-install
 Summary:	First boot configuration
@@ -92,7 +92,7 @@ Requires:	drakx-installer-matchbox
 Summary:	Main Hardware Configuration/Information Tool
 Group:		System/Configuration/Hardware
 Requires:	%{name}-curses = %{version}-%{release}
-Requires(pre,post):rpm-helper
+Requires(pre,post):	rpm-helper
 Requires:	drakx-kbd-mouse-x11 
 Requires:	meta-task
 Suggests:	libdrakx-net 
@@ -121,10 +121,10 @@ them work both under XFree (graphical environment) and in console
 - draklog: show extracted information from the system logs
 - draksec: security options managment
 
-%description	backend
-See package %{name}
+%description backend
+See package %{name}.
 
-%description	curses
+%description curses
 Contains many %{vendor} Linux applications simplifying users and
 administrators life on a %{vendor} Linux machine. Nearly all of
 them work both under XFree (graphical environment) and in console
@@ -155,7 +155,7 @@ them work both under XFree (graphical environment) and in console
 - lspcidrake: display your pci information, *and* the corresponding
   kernel module
 
-%description	http
+%description http
 This package lets you configure your computer through your Web browser:
 it provides an HTTP interface to the %{vendor} tools found in the drakxtools
 package.
@@ -185,7 +185,7 @@ hardware classes.
 %apply_patches
 
 %build
-%make -C perl-install CFLAGS="$RPM_OPT_FLAGS"
+%make -C perl-install CFLAGS="%{optflags}"
 
 %install
 %make -C perl-install PREFIX=%{buildroot} install
