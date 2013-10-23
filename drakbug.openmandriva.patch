@@ -23,7 +23,7 @@ diff -Nur drakxtools-14.41-old/perl-install/standalone/drakbug drakxtools-14.41/
      $distrocode = "cooker";
  }
 -my $bugzilla_url = 'http://qa.mandriva.com/enter_bug.cgi';
-+my $bugzilla_url = 'http://issues.mandriva.com/enter_bug.cgi';
++my $bugzilla_url = 'http://issues.openmandriva.org/enter_bug.cgi';
  my $wizard_name = "Bugzilla";
  
  $table = create_packtable({ col_spacings => 5, row_spacings => 10 },
