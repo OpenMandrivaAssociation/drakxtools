@@ -1,0 +1,11 @@
+--- drakxtools-14.41/perl-install/pkgs.pm.orig	2013-10-26 13:30:41.158662825 +0100
++++ drakxtools-14.41/perl-install/pkgs.pm	2013-10-26 13:30:56.582663449 +0100
+@@ -259,7 +259,7 @@
+     undef $wait;
+ 
+     # Packages to not remove even if they seem unused
+-    my @wanted_hardware_packages = qw(gnome-bluetooth gnome-phone-manager kbluetooth kppp ppp wireless-tools wpa_supplicant);
++    my @wanted_hardware_packages = qw(gnome-bluetooth gnome-phone-manager kbluetooth kppp ppp wireless-tools wpa_supplicant kernel-firmware-extra);
+     @unused_hardware_packages = difference2(\@unused_hardware_packages, \@wanted_hardware_packages);
+ 
+     @unused_hardware_packages || @unselected_locales or return;
