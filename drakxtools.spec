@@ -10,6 +10,7 @@ Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
 Source0:	%{name}-%{version}.tar.xz
 Source1:	drakxtools.rpmlintrc
+Source2:	small-logo.png
 Patch1:		drakxtools-14.22.timeout.patch
 Patch2:		drakxtools-14.22-grub-password.patch
 Patch3:		drakxtools-14.41-release.sh-rename.patch
@@ -268,6 +269,9 @@ EOF
 	mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 	ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
+
+#install new logo
+cp %{SOURCE2} %{buildroot}%{_datadir}/libDrakX/pixmaps/small-logo.png
 
 %find_lang libDrakX libDrakX.lang
 %find_lang libDrakX-standalone libDrakX-standalone.lang
