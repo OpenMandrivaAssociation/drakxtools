@@ -4,7 +4,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.41
-Release:	15
+Release:	16
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -25,6 +25,7 @@ Patch11:	drakbug.openmandriva.patch
 Patch12:	0001-handle-etc-locale.conf-by-default-this-file-should-c.patch
 Patch13:	drakxtools-mirrorlist-url.patch
 Patch14:	drakxtools-14.41-unused_hardware.patch
+Patch15:	drakxtools-14.41-drakxservices-targets.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0

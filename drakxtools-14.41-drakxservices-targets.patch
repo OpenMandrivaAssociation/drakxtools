@@ -1,0 +1,11 @@
+--- drakxtools-14.41/perl-install/services.pm.orig	2013-10-27 23:58:09.308288673 +0000
++++ drakxtools-14.41/perl-install/services.pm	2013-10-27 23:58:25.938289548 +0000
+@@ -391,7 +391,7 @@
+             # also handled by systemd
+             if (!exists $loaded{$name} && $name !~ /.*\@$/g && (-e "$::prefix/lib/systemd/system/$name.service" or -e "$::prefix/etc/rc.d/init.d/$name") && ! -l "$::prefix/lib/systemd/system/$name.service") {
+                 # Limit ourselves to "standard" targets which can be enabled
+-                my $wantedby = cat_("$::prefix/lib/systemd/system/$name.service") =~ /^WantedBy=(graphical|multi-user).target$/sm ? $1 : '';
++                my $wantedby = cat_("$::prefix/lib/systemd/system/$name.service") =~ /^WantedBy=(graphical|multi-user|printer|sound).target$/sm ? $1 : '';
+                 if ($wantedby) {
+                     push @services, [ $name, 0 ];
+                 }
