@@ -46,6 +46,16 @@ index a255abc..b517691 100644
      log::explanations(qq(Setting l10n configuration in "$file"));
      setVarsInShMode($::prefix . $file, 0644, $h);
  
--- 
-1.8.3.2
-
+--- drakxtools-14.41/perl-install/standalone/finish-install.xsetup.orig	2013-10-29 10:18:27.129378345 +0000
++++ drakxtools-14.41/perl-install/standalone/finish-install.xsetup	2013-10-29 10:19:16.033380917 +0000
+@@ -5,8 +5,8 @@
+ if [ -f /etc/sysconfig/finish-install -a -x /usr/sbin/finish-install ]; then
+     . /etc/sysconfig/finish-install
+     if [ "$FINISH_INSTALL" = yes ]; then
+-	if [ -r /etc/sysconfig/i18n ]; then
+-	    . /etc/sysconfig/i18n
++	if [ -r /etc/locale.conf ]; then
++	    . /etc/locale.conf
+ 	    export LANGUAGE LC_ADDRESS LC_COLLATE LC_NAME LC_NUMERIC LC_MEASUREMENT LC_TIME \
+ 	    LANG LC_IDENTIFICATION LC_MESSAGES LC_CTYPE LC_TELEPHONE LC_MONETARY LC_PAPER
+ 	fi
