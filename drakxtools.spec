@@ -10,28 +10,13 @@ Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
 Source0:	%{name}-%{version}.tar.xz
 Source1:	drakxtools.rpmlintrc
-Source2:	small-logo.png
-Patch1:		drakxtools-14.22.timeout.patch
-Patch2:		drakxtools-14.22-grub-password.patch
-Patch3:		drakxtools-14.41-release.sh-rename.patch
-#Patch4:	rosa-theme-fix.patch
-Patch5:		drakxtools-13.51-split-root-user.patch
-Patch6:		drakxtools-14.22.initrdinstall.patch
-Patch7:		drakxtools.background-and-lang.patch
-Patch8:		drakxtools-14.41.remove_unused_locales.patch
-Patch9:		drakxtools.remove-openvpn-selection.patch
-Patch10:	drakxtools.temporary-update-license.patch
-Patch11:	drakbug.openmandriva.patch
-Patch12:	0001-handle-etc-locale.conf-by-default-this-file-should-c.patch
-Patch13:	drakxtools-mirrorlist-url.patch
-Patch14:	drakxtools-14.41-unused_hardware.patch
-Patch15:	drakxtools-14.41-drakxservices-targets.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
 BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
-BuildRequires:	perl-MDK-Common perl-MDK-Common-devel
+BuildRequires:	perl-MDK-Common
+BuildRequires:	perl-MDK-Common-devel
 BuildRequires:	parted-devel
 %if !%{with bootstrap}
 BuildRequires:	drakx-installer-binaries
@@ -270,9 +255,6 @@ EOF
 	mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 	ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
 done
-
-#install new logo
-cp %{SOURCE2} %{buildroot}%{_datadir}/libDrakX/pixmaps/small-logo.png
 
 %find_lang libDrakX libDrakX.lang
 %find_lang libDrakX-standalone libDrakX-standalone.lang
