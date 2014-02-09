@@ -1,3 +1,5 @@
----
-sources:
+removed_sources:
   drakxtools-14.41.tar.xz: d2fd976f7cd9a399a61260485ecc6f5abca34f8d
+sources:
+  drakxtools-14.43.tar.xz: 9c756fa8f286b3f182d5bb5303b5e7a65661d86f
+  small-logo.png: 6d4ca56a246acd30757363c2a309d48b98d4727f
