@@ -4,7 +4,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.41
-Release:	20
+Release:	21
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -26,12 +26,14 @@ Patch12:	0001-handle-etc-locale.conf-by-default-this-file-should-c.patch
 Patch13:	drakxtools-mirrorlist-url.patch
 Patch14:	drakxtools-14.41-unused_hardware.patch
 Patch15:	drakxtools-14.41-drakxservices-targets.patch
+Patch16:	drakxtools-14.41-fix-samba-service-file.patch
 
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
 BuildRequires:	ncurses-devel
 BuildRequires:	perl-devel
-BuildRequires:	perl-MDK-Common perl-MDK-Common-devel
+BuildRequires:	perl-MDK-Common
+BuildRequires:	perl-MDK-Common-devel
 BuildRequires:	parted-devel
 %if !%{with bootstrap}
 BuildRequires:	drakx-installer-binaries
