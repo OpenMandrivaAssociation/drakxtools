@@ -28,7 +28,7 @@ BuildRequires:	pkgconfig(libtirpc)
 # files to which we symlink
 Requires:	%{name}-curses = %{version}-%{release}
 Requires:	usermode
-Requires:	%{_vendor}-doc-common
+Suggests:	%{_vendor}-doc-common
 Requires:	perl-Net-DBus
 Requires:	perl-Gtk2-WebKit
 # needed by drakfont (eg: type1inst):
