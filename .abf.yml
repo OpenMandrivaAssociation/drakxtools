@@ -1,6 +1,6 @@
 removed_sources:
   drakxtools-14.41.tar.xz: d2fd976f7cd9a399a61260485ecc6f5abca34f8d
-  drakxtools-14.43.tar.xz: d29b439d96213c10b5804bcb791faf9479404082
-sources:
   drakxtools-14.43.tar.xz: 1c8577b5da1a0076b5ed84b69194aab25b46e4ee
+sources:
+  drakxtools-14.44.tar.xz: b9b1303359633f83a5771260c84d96e28f4d2007
   small-logo.png: 6d4ca56a246acd30757363c2a309d48b98d4727f
