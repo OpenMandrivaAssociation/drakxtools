@@ -3,7 +3,7 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	14.45
+Version:	14.46
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
