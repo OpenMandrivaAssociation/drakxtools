@@ -4,7 +4,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.51
-Release:	1
+Release:	5
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -55,6 +55,7 @@ Requires:	perl-Locale-gettext
 Requires:	module-init-tools
 Requires:	%{name}-backend = %{version}-%{release}
 Suggests:	drakx-net-text
+Requires:	timezone
 
 %package backend
 Summary:	Drakxtools libraries and background tools 
