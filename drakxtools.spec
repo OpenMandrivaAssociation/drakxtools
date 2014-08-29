@@ -303,14 +303,12 @@ file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddr
 %{_bindir}/drakxservices
 %{_bindir}/drakboot
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakkeyboard
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakmouse
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakups
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakauth
 %config(noreplace) %{_sysconfdir}/security/console.apps/draklog
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakxservices
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakboot
 %config(noreplace) %{_sysconfdir}/pam.d/drakkeyboard
-%config(noreplace) %{_sysconfdir}/pam.d/drakmouse
 %config(noreplace) %{_sysconfdir}/pam.d/drakups
 %config(noreplace) %{_sysconfdir}/pam.d/drakauth
 %config(noreplace) %{_sysconfdir}/pam.d/draklog
