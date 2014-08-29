@@ -4,7 +4,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.51
-Release:	8
+Release:	9
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -216,7 +216,7 @@ echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> %{buildroot}%{_sysconfdir}/
 #
 
 # - console user, no password
-for pak in drakclock drakkeyboard drakmouse; do
+for pak in drakclock drakkeyboard; do
 	ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
 	mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 	cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
@@ -297,7 +297,6 @@ file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddr
 %{_iconsdir}/large/localedrake.png
 %{_iconsdir}/mini/localedrake.png
 %{_bindir}/drakkeyboard
-%{_bindir}/drakmouse
 %{_bindir}/drakups
 %{_bindir}/drakauth
 %{_bindir}/draklog
