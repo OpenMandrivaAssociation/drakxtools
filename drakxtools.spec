@@ -3,8 +3,8 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	14.51
-Release:	9
+Version:	14.52
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -52,7 +52,7 @@ Requires:	perl-base
 Requires:	usermode-consoleonly
 Requires:	urpmi
 Requires:	perl-Locale-gettext
-Requires:	module-init-tools
+Requires:	kmod
 Requires:	%{name}-backend = %{version}-%{release}
 Suggests:	drakx-net-text
 Requires:	timezone
@@ -84,8 +84,6 @@ Requires:	%{name}-curses = %{version}-%{release}
 Requires(pre,post):	rpm-helper
 Requires:	drakx-kbd-mouse-x11 
 Requires:	meta-task
-Suggests:	libdrakx-net 
-Suggests:	drak3d
 
 %package -n	harddrake-ui
 Summary:	Main Hardware Configuration/Information Tool
@@ -93,8 +91,6 @@ Group:		System/Configuration/Hardware
 Requires:	%{name} = %{version}-%{release}
 Requires:	sane-backends
 Requires:	drakx-kbd-mouse-x11 
-Suggests:	libdrakx-net 
-Suggests:	drak3d
 
 %description
 Contains many %{vendor} Linux applications simplifying users and
