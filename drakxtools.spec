@@ -3,8 +3,8 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	14.51
-Release:	1.6
+Version:	14.52
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -52,7 +52,7 @@ Requires:	perl-base
 Requires:	usermode-consoleonly
 Requires:	urpmi
 Requires:	perl-Locale-gettext
-Requires:	module-init-tools
+Requires:	kmod
 Requires:	%{name}-backend = %{version}-%{release}
 Suggests:	drakx-net-text
 Requires:	timezone
@@ -84,8 +84,6 @@ Requires:	%{name}-curses = %{version}-%{release}
 Requires(pre,post):	rpm-helper
 Requires:	drakx-kbd-mouse-x11 
 Requires:	meta-task
-Suggests:	libdrakx-net 
-Suggests:	drak3d
 
 %package -n	harddrake-ui
 Summary:	Main Hardware Configuration/Information Tool
@@ -93,8 +91,6 @@ Group:		System/Configuration/Hardware
 Requires:	%{name} = %{version}-%{release}
 Requires:	sane-backends
 Requires:	drakx-kbd-mouse-x11 
-Suggests:	libdrakx-net 
-Suggests:	drak3d
 
 %description
 Contains many %{vendor} Linux applications simplifying users and
@@ -216,7 +212,7 @@ echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> %{buildroot}%{_sysconfdir}/
 #
 
 # - console user, no password
-for pak in drakclock drakkeyboard drakmouse; do
+for pak in drakclock drakkeyboard; do
 	ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
 	mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 	cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
@@ -297,21 +293,18 @@ file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddr
 %{_iconsdir}/large/localedrake.png
 %{_iconsdir}/mini/localedrake.png
 %{_bindir}/drakkeyboard
-%{_bindir}/drakmouse
 %{_bindir}/drakups
 %{_bindir}/drakauth
 %{_bindir}/draklog
 %{_bindir}/drakxservices
 %{_bindir}/drakboot
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakkeyboard
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakmouse
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakups
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakauth
 %config(noreplace) %{_sysconfdir}/security/console.apps/draklog
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakxservices
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakboot
 %config(noreplace) %{_sysconfdir}/pam.d/drakkeyboard
-%config(noreplace) %{_sysconfdir}/pam.d/drakmouse
 %config(noreplace) %{_sysconfdir}/pam.d/drakups
 %config(noreplace) %{_sysconfdir}/pam.d/drakauth
 %config(noreplace) %{_sysconfdir}/pam.d/draklog
