@@ -170,7 +170,7 @@ hardware classes.
 %apply_patches
 
 %build
-%make -C perl-install CFLAGS="%{optflags}"
+%make -C perl-install CFLAGS="%{optflags}" CC=%{__cc}
 
 %install
 %make -C perl-install PREFIX=%{buildroot} install
