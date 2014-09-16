@@ -3,7 +3,7 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	14.52
+Version:	14.53
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
@@ -62,6 +62,7 @@ Summary:	Drakxtools libraries and background tools
 Group:		System/Configuration/Other
 Requires:	dmidecode
 Requires:	perl-File-FnMatch
+Requires:	parted
 
 %package http
 Summary:	The drakxtools via http
