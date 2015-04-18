@@ -4,13 +4,12 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	14.56
-Release:	11
+Release:	13
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
 Source0:	%{name}-%{version}.tar.xz
 Source1:	drakxtools.rpmlintrc
-
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
 BuildRequires:	ncurses-devel
