@@ -1,10 +1,12 @@
 # break circular dependency
 %bcond_with	bootstrap
 
+%define debug_package %{nil}
+
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	14.56
-Release:	14
+Version:	16.62
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -178,7 +180,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/{X11/xinit.d,X11/wmsession.d,sysconfig/hardd
 touch %{buildroot}/etc/sysconfig/harddrake2/previous_hw
 
 dirs1="usr/lib/libDrakX usr/share/libDrakX"
-(cd %{buildroot} ; find $dirs1 usr/bin usr/sbin ! -type d -printf "/%%p\n")|egrep -v 'bin/.*harddrake' > %{name}.list
+(cd %{buildroot} ; find $dirs1 usr/bin usr/sbin usr/libexec usr/share/polkit-1 ! -type d -printf "/%%p\n")|egrep -v 'bin/.*harddrake' > %{name}.list
 (cd %{buildroot} ; find $dirs1 -type d -printf "%%%%dir /%%p\n") >> %{name}.list
 
 perl -ni -e '/dbus_object\.pm|Xdrakres|clock|display_help|display_release_notes.pl|drak(bug|clock|dvb|floppy|font|hosts|log|sec|splash)|gtk|icons|logdrake|pixmaps|\.png$/ ? print STDERR $_ : print' %{name}.list 2> %{name}-gtk.list
@@ -207,51 +209,6 @@ rm -f %{buildroot}%{_sysconfdir}/X11/xinit.d/harddrake2
 
 perl -I perl-install -mharddrake::data -e 'print "DETECT_$_->{class}=yes\n" foreach @harddrake::data::tree' |sort > %{buildroot}%{_sysconfdir}/sysconfig/harddrake2/service.conf
 echo -e "AUTORECONFIGURE_RIGHT_XORG_DRIVER=yes\n" >> %{buildroot}%{_sysconfdir}/sysconfig/harddrake2/service.conf
-
-# consolehelper config
-#
-
-# - console user, no password
-for pak in drakclock ; do
-	ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
-	mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
-	cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
-USER=<user>
-PROGRAM=%{_sbindir}/$pak
-FALLBACK=false
-SESSION=true
-EOF
-	mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-	ln -sf %{_sysconfdir}/pam.d/%{_vendor}-console-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
-done
-
-# console user, ask for user password
-for pak in drakfont; do
-	ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
-	mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
-	cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
-USER=<user>
-PROGRAM=%{_sbindir}/$pak
-FALLBACK=false
-SESSION=true
-EOF
-	mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-	ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
-done
-
-# console user, ask for root password
-for pak in drakups drakauth draklog drakxservices drakboot; do
-	ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
-	mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps
-	cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
-USER=root
-PROGRAM=/usr/sbin/$pak
-FALLBACK=false
-SESSION=true
-EOF
-	mkdir -p %{buildroot}%{_sysconfdir}/pam.d
-	ln -sf %{_sysconfdir}/pam.d/%{_vendor}-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
-done
 
 %find_lang libDrakX libDrakX.lang
 %find_lang libDrakX-standalone libDrakX-standalone.lang
@@ -292,29 +249,8 @@ file /etc/sysconfig/harddrake2/previous_hw | fgrep -q perl && %{_datadir}/harddr
 %{_iconsdir}/localedrake.png
 %{_iconsdir}/large/localedrake.png
 %{_iconsdir}/mini/localedrake.png
-%{_bindir}/drakups
-%{_bindir}/drakauth
-%{_bindir}/draklog
-%{_bindir}/drakxservices
-%{_bindir}/drakboot
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakups
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakauth
-%config(noreplace) %{_sysconfdir}/security/console.apps/draklog
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakxservices
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakboot
-%config(noreplace) %{_sysconfdir}/pam.d/drakups
-%config(noreplace) %{_sysconfdir}/pam.d/drakauth
-%config(noreplace) %{_sysconfdir}/pam.d/draklog
-%config(noreplace) %{_sysconfdir}/pam.d/drakxservices
-%config(noreplace) %{_sysconfdir}/pam.d/drakboot
 
 %files -f %{name}-gtk.list
-%{_bindir}/drakclock
-%{_bindir}/drakfont
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakclock
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakfont
-%config(noreplace) %{_sysconfdir}/pam.d/drakclock
-%config(noreplace) %{_sysconfdir}/pam.d/drakfont
 
 %files -n harddrake
 %dir /etc/sysconfig/harddrake2/
