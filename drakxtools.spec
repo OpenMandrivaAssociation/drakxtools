@@ -6,7 +6,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	16.63
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -28,7 +28,7 @@ BuildRequires:	pkgconfig(libtirpc)
 # usermode 1.92-4mdv2008.0 has the /etc/pam.d/%{_vendor}-{simple,console}-auth
 # files to which we symlink
 Requires:	%{name}-curses = %{version}-%{release}
-Requires:	usermode
+Requires:	polkit
 Suggests:	%{_vendor}-doc-common
 Requires:	perl-Net-DBus
 Requires:	perl-Gtk2-WebKit
@@ -50,7 +50,7 @@ Conflicts:	drakx-kbd-mouse-x11 < 0.91
 Summary:	The drakxtools (diskdrake, ...)
 Group:		System/Configuration/Other
 Requires:	perl-base
-Requires:	usermode-consoleonly
+Requires:	polkit
 Requires:	urpmi
 Requires:	perl-Locale-gettext
 Requires:	kmod
