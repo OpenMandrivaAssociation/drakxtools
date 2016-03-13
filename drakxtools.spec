@@ -172,7 +172,8 @@ hardware classes.
 %apply_patches
 
 %build
-%make -C perl-install CFLAGS="%{optflags}" CC=%{__cc}
+sed -i 's!g++!%{__cxx}!g' perl-install/c/Makefile.PL
+%make -C perl-install CFLAGS="%{optflags}" CC=%{__cc} CXX=%{__cxx}
 
 %install
 %make -C perl-install PREFIX=%{buildroot} install
