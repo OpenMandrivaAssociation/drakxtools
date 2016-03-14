@@ -5,8 +5,8 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	16.63
-Release:	2
+Version:	16.64
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -172,7 +172,6 @@ hardware classes.
 %apply_patches
 
 %build
-sed -i 's!g++!%{__cxx}!g' perl-install/c/Makefile.PL
 %make -C perl-install CFLAGS="%{optflags}" CC=%{__cc} CXX=%{__cxx}
 
 %install

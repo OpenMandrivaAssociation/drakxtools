@@ -1,3 +1,5 @@
-sources:
+removed_sources:
   drakxtools-16.63.tar.xz: 2f6bcd8ac3b00f0e8580e380b32bbce3e15b4962
+sources:
+  drakxtools-16.64.tar.xz: f16ee7c7346af5abbdcdc826e2e824fd5632de49
   small-logo.png: 6d4ca56a246acd30757363c2a309d48b98d4727f
