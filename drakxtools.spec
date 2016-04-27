@@ -1,5 +1,5 @@
 # break circular dependency
-%bcond_with	bootstrap
+%bcond_without bootstrap
 
 %define debug_package %{nil}
 
