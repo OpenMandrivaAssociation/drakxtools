@@ -6,7 +6,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	16.65
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
@@ -84,7 +84,7 @@ Summary:	Main Hardware Configuration/Information Tool
 Group:		System/Configuration/Hardware
 Requires:	%{name}-curses = %{version}-%{release}
 Requires(pre,post):	rpm-helper
-Requires:	drakx-kbd-mouse-x11 
+Requires:	drakx-kbd-mouse-x11
 Requires:	meta-task
 
 %package -n	harddrake-ui
@@ -92,7 +92,7 @@ Summary:	Main Hardware Configuration/Information Tool
 Group:		System/Configuration/Hardware
 Requires:	%{name} = %{version}-%{release}
 Requires:	sane-backends
-Requires:	drakx-kbd-mouse-x11 
+Requires:	drakx-kbd-mouse-x11
 
 %description
 Contains many %{vendor} Linux applications simplifying users and
