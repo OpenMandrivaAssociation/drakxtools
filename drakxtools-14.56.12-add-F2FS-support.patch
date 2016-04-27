@@ -1,0 +1,141 @@
+diff -Naur drakxtools-14.56.12/perl-install/diskdrake/hd_gtk.pm /usr/lib/libDrakX/diskdrake/hd_gtk.pm
+--- drakxtools-14.56.12/perl-install/diskdrake/hd_gtk.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/diskdrake/hd_gtk.pm	2016-04-27 21:08:31.629308553 +0000
+@@ -410,7 +410,7 @@
+ 	if (isLUKS($entry) || isRawLUKS($entry)) {
+ 	    $w->set_image(gtknew("Image", file => "security-strong"));
+ 	}
+-	my @colorized_fs_types = qw(ext3 ext4 xfs swap vfat ntfs ntfs-3g);
++	my @colorized_fs_types = qw(ext3 ext4 f2fs xfs swap vfat ntfs ntfs-3g);
+ 	$w->set_name("PART_" . (isEmpty($entry) ? 'empty' : 
+ 				$entry->{fs_type} && member($entry->{fs_type}, @colorized_fs_types) ? $entry->{fs_type} :
+ 				'other'));
+@@ -447,9 +447,9 @@
+ }
+ 
+ sub filesystems_button_box() {
+-    my @types = (N_("Ext4"), N_("XFS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
++    my @types = (N_("Ext4"), N_("F2FS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
+ 		 N_("Other"), N_("Empty"));
+-    my %name2fs_type = (Ext3 => 'ext3', Ext4 => 'ext4', 'XFS' => 'xfs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
++    my %name2fs_type = (Ext3 => 'ext3', Ext4 => 'ext4', 'F2FS' => 'f2fs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
+ 
+     gtkpack(Gtk2::HBox->new, 
+ 	    map {
+diff -Naur drakxtools-14.56.12/perl-install/diskdrake/interactive.pm /usr/lib/libDrakX/diskdrake/interactive.pm
+--- drakxtools-14.56.12/perl-install/diskdrake/interactive.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/diskdrake/interactive.pm	2016-04-27 20:56:05.779163041 +0000
+@@ -808,6 +808,12 @@
+ 	        $nice_resize{btrfs} = 1;
+ 		$min = max($min, $part->{size} - $free);
+ 	    }
++       } elsif ($part->{fs_type} eq 'f2fs') {
++           write_partitions($in, $hd) or return;
++           if (defined(my $free = fs::df($part))) {
++               $nice_resize{f2fs} = 1;
++               $min = max($min, $part->{size} - $free);
++           }
+ 	}
+ 	#- make sure that even after normalizing the size to cylinder boundaries, the minimun will be saved,
+ 	#- this save at least a cylinder (less than 8Mb).
+@@ -1289,7 +1295,7 @@
+ 
+ sub _format_raw {
+     my ($in, $part, $all_hds, $o_skip) = @_;
+-    if ($::expert && !member($part->{fs_type}, 'reiserfs', 'xfs', 'hfs', 'ntfs', 'ntfs-3g', 'btrfs')) {
++    if ($::expert && !member($part->{fs_type}, 'reiserfs', 'xfs', 'hfs', 'ntfs', 'ntfs-3g', 'btrfs', 'f2fs')) {
+ 	$part->{toFormatCheck} = $in->ask_yesorno(N("Confirmation"), N("Check bad blocks?"));
+     }
+     $part->{isFormatted} = 0; #- force format;
+diff -Naur drakxtools-14.56.12/perl-install/fs/format.pm /usr/lib/libDrakX/fs/format.pm
+--- drakxtools-14.56.12/perl-install/fs/format.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/fs/format.pm	2016-04-27 20:57:02.193688188 +0000
+@@ -12,6 +12,7 @@
+     ext2     => [ 'e2fsprogs', 'mkfs.ext2', '-F' ],
+     ext3     => [ 'e2fsprogs', 'mkfs.ext3', '-F' ],
+     ext4     => [ 'e2fsprogs', 'mkfs.ext4', '-F' ],
++    f2fs     => [ 'f2fs-tools', 'mkfs.f2fs' ],
+     reiserfs => [ 'reiserfsprogs', 'mkfs.reiserfs', '-ff' ],
+     xfs      => [ 'xfsprogs', 'mkfs.xfs', '-f', '-q' ],
+     jfs      => [ 'jfsutils', 'mkfs.jfs', '-f' ],
+@@ -29,6 +30,7 @@
+     ext2     => [ '-L', 16, 1 ],
+     ext3     => [ '-L', 16, 1 ],
+     ext4     => [ '-L', 16, 1 ],
++    f2fs     => [ '-l', 16, 1 ],
+     reiserfs => [ '-l', 16, 1 ],
+     xfs      => [ '-L', 12, 1 ],
+     jfs      => [ '-L', 16, 1 ],
+@@ -48,6 +50,7 @@
+     ext2     => [ 'e2fsprogs', 'tune2fs', '-L' ],
+     ext3     => [ 'e2fsprogs', 'tune2fs', '-L' ],
+     ext4     => [ 'e2fsprogs', 'tune2fs', '-L' ],
++    f2fs     => [ 'f2fs-tools', 'mkfs.f2fs', '-l' ],
+     reiserfs => [ 'reiserfsprogs', 'reiserfstune', '-l' ],
+     xfs      => [ 'xfsprogs', 'xfs_admin', '-L' ],
+     jfs      => [ 'jfsutils', 'jfs_tune', '-L' ],
+diff -Naur drakxtools-14.56.12/perl-install/fs/mount.pm /usr/lib/libDrakX/fs/mount.pm
+--- drakxtools-14.56.12/perl-install/fs/mount.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/fs/mount.pm	2016-04-27 20:57:43.432805299 +0000
+@@ -32,7 +32,7 @@
+     $fs or log::l("not mounting $dev partition"), return;
+ 
+     {
+-	my @fs_modules = qw(btrfs ext3 ext4 hfs jfs nilfs2 nfs ntfs romfs reiserfs ufs xfs vfat);
++	my @fs_modules = qw(btrfs f2fs ext3 ext4 hfs jfs nilfs2 nfs ntfs romfs reiserfs ufs xfs vfat);
+ 	my @types = (qw(ext2 proc sysfs iso9660 devpts auto ntfs-3g), @fs_modules);
+ 
+ 	push @types, 'smb', 'cifs', 'davfs2' if !$::isInstall;
+diff -Naur drakxtools-14.56.12/perl-install/fs/partitioning_wizard.pm /usr/lib/libDrakX/fs/partitioning_wizard.pm
+--- drakxtools-14.56.12/perl-install/fs/partitioning_wizard.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/fs/partitioning_wizard.pm	2016-04-27 21:06:46.505461046 +0000
+@@ -311,7 +311,7 @@
+ 
+     foreach my $entry (@parts) {
+ 	my $part_info = Gtk2::Label->new($entry->{device_LABEL});
+-	my @colorized_fs_types = qw(ext2 ext3 ext4 xfs swap vfat ntfs ntfs-3g);
++	my @colorized_fs_types = qw(ext2 ext3 ext4 f2fs xfs swap vfat ntfs ntfs-3g);
+         my $part_widget = Gtk2::EventBox->new;
+         $entry->{width} = int($entry->{size} * $initial_ratio) + $minwidth;
+         if ($last && $last->{device} eq $entry->{device}) {
+@@ -355,7 +355,7 @@
+ 
+             my $update_size_labels = sub {
+                 $win_size_label->set_label(" Windows (" . formatXiB($entry->{req_size}, 512) . ")");
+-                $mdv_size_label->set_label(" OpenMandriva Lx (" . formatXiB($entry->{size} - $entry->{req_size}, 512) . ")");
++                $mdv_size_label->set_label(" OpenMandriva (" . formatXiB($entry->{size} - $entry->{req_size}, 512) . ")");
+                 0;
+             };
+             my $update_req_size = sub {
+@@ -401,9 +401,9 @@
+     }
+     $display_box->remove($part_sep) if $part_sep;
+     unless ($resize || $fill_empty) {
+-        my @types = (N_("Ext2/3/4"), N_("XFS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
++        my @types = (N_("Ext2/3/4"), N_("F2FS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
+                     N_("Other"), N_("Empty"));
+-        my %name2fs_type = ('Ext2/3/4' => 'ext3', 'XFS' => 'xfs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
++        my %name2fs_type = ('Ext2/3/4' => 'ext3', 'F2FS' => 'f2fs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
+         $desc = ugtk2::gtkpack(Gtk2::HBox->new,
+                 map {
+                      my $t = $name2fs_type{$_};
+diff -Naur drakxtools-14.56.12/perl-install/fs/type.pm /usr/lib/libDrakX/fs/type.pm
+--- drakxtools-14.56.12/perl-install/fs/type.pm	2015-07-14 06:05:58.000000000 +0000
++++ /usr/lib/libDrakX/fs/type.pm	2016-04-27 20:59:04.678011016 +0000
+@@ -21,6 +21,7 @@
+   0x83 => 'ext3',     'Journalised FS: ext3',
+   0x83 => 'ext4',     'Journalised FS: ext4',
+   0x83 => 'btrfs',    'Journalised FS: Btrfs',
++  0x83 => 'f2fs',    'Journalised FS: F2FS',
+   0x83 => 'reiserfs', 'Journalised FS: ReiserFS',
+   0x83 => 'xfs',      'Journalised FS: XFS',
+   0x83 => 'jfs',      'Journalised FS: JFS',
+@@ -303,7 +304,7 @@
+ 
+ sub defaultFS() { 'ext4' }
+ 
+-sub true_local_fs_types() { qw(btrfs ext3 ext2 ext4 reiserfs xfs jfs) }
++sub true_local_fs_types() { qw(btrfs f2fs ext3 ext2 ext4 reiserfs xfs jfs) }
+ 
+ sub isEmpty { !$_[0]{fs_type} && $_[0]{pt_type} == 0 }
+ sub isESP { $_[0]{pt_type} == 0xef }
