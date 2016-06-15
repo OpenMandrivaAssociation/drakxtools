@@ -6,7 +6,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	16.68
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://abf.rosalinux.ru/omv_software/drakx
