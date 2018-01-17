@@ -5,11 +5,11 @@
 
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
-Version:	16.73
+Version:	16.74
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Other
-Url:		https://abf.rosalinux.ru/omv_software/drakx
+Url:		https://github.com/OpenMandrivaSoftware/drakx
 Source0:	%{name}-%{version}.tar.xz
 Source1:	drakxtools.rpmlintrc
 BuildRequires:	gettext
@@ -31,7 +31,7 @@ Requires:	%{name}-curses = %{version}-%{release}
 Requires:	polkit
 Suggests:	%{_vendor}-doc-common
 Requires:	perl-Net-DBus
-Requires:	perl-Gtk2-WebKit
+Requires:	perl-Gtk3-WebKit2 >= 0.60.0-6
 # needed by drakfont (eg: type1inst):
 Requires:	font-tools
 Requires:	libxxf86misc
@@ -44,7 +44,7 @@ Requires:	ldetect-lst >= 0.1.272
 Suggests:	drakx-net
 
 Conflicts:	drakx-kbd-mouse-x11 < 0.91
-%define __noautoreq 'perl\\((Net::FTP|Time::localetime|URPM|Xconfig.*|Gtk2::WebKit)\\)'
+%define __noautoreq 'perl\\((Net::FTP|Time::localetime|URPM|Xconfig.*|Gtk3::WebKit)\\)'
 
 %package curses
 Summary:	The drakxtools (diskdrake, ...)
@@ -147,21 +147,21 @@ This package lets you configure your computer through your Web browser:
 it provides an HTTP interface to the %{vendor} tools found in the drakxtools
 package.
 
-%description -n	drakx-finish-install
+%description -n drakx-finish-install
 For OEM-like duplications, it allows at first boot:
 - network configuration
 - creating users
 - setting root password
 - choosing authentication
 
-%description -n	harddrake
+%description -n harddrake
 The harddrake service is a hardware probing tool run at system boot
 time to determine what hardware has been added or removed from the
 system.
 It then offer to run needed config tool to update the OS
 configuration.
 
-%description -n	harddrake-ui
+%description -n harddrake-ui
 This is the main configuration tool for hardware that calls all the
 other configuration tools.
 It offers a nice GUI that show the hardware configuration splitted by
