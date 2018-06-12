@@ -6,7 +6,7 @@
 Summary:	The drakxtools for %{distribution}
 Name:		drakxtools
 Version:	16.74
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Other
 Url:		https://github.com/OpenMandrivaSoftware/drakx
