@@ -169,7 +169,7 @@ hardware classes.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 %build
 %make -C perl-install CFLAGS="%{optflags}" CC=%{__cc} CXX=%{__cxx}
