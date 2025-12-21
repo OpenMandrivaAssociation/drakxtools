@@ -12,6 +12,7 @@ Group:		System/Configuration/Other
 Url:		https://github.com/OpenMandrivaSoftware/drakx
 Source0:	%{name}-%{version}.tar.xz
 Source1:	drakxtools.rpmlintrc
+BuildRequires:	make
 BuildRequires:	gettext
 BuildRequires:	ldetect-devel >= 0.9.0
 BuildRequires:	ncurses-devel
